@@ -1,7 +1,7 @@
 {
     "tier1": [
     {
-        "name": "Dirty Sink",
+        "name": "Piss Covered Toilet",
         "level": 1,
         "defense": 5,
         "attack": 2,
@@ -11,7 +11,7 @@
         "reward": 1
     },
     {
-        "name": "Dirty Shower",
+        "name": "Shit Covered Toilet",
         "level": 1,
         "defense": 10,
         "attack": 1,
@@ -45,7 +45,7 @@
 ],
 "tier3": [
     {
-        "name": "Pube Covered Toilet",
+        "name": "Piss Covered Toilet",
         "level": 3,
         "defense": 15,
         "attack": 4,
@@ -55,7 +55,7 @@
         "reward": 5
     },
     {
-        "name": "Diarrhea Covered Toilet ",
+        "name": "Shit Covered Toilet ",
         "level": 3,
         "defense": 20,
         "attack": 5,
