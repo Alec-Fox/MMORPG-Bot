@@ -100,8 +100,8 @@ exports.calculateDeath = (msg) => {
 /**
  * adds xp to user
  *
- * @param {string} command - command from user
  * @param {object} msg - message from user
+ * * @param {number} xp - xp reward
  */
 
 exports.calculateXp = (msg, xp) => {
@@ -109,6 +109,24 @@ exports.calculateXp = (msg, xp) => {
     playerdata[userID].currentxp += xp;
     u.exportJson(playerdata, 'playerdata');
     calculateLvlUp(msg);
+}
+
+/**
+ * uses health-pot if the user has one
+ *
+ * @param {string} command - command from user
+ * @param {object} msg - message from user
+ */
+
+exports.flee = (command, msg) => {
+    if (command !== `${prefix}flee` || msg.channel.parentID !== c.ARENA_CATEGORY_ID) { return; }
+    msg.channel.send({
+        embed: {
+            color: 3021383,
+            title: `${msg.author.username}, you run away from the monster!`
+        }
+    });
+    combat.resetFight();
 }
 
 /**
