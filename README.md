@@ -6,7 +6,7 @@
 - **!!buy <item name>** - Purchases item from shop.
 - **!attack** -           Attacks the monster. Deals your attack damage to them, and theirs to you.
 - **!pot** -              Consumes 1 health-potion (heals 20).
-----------------------------------MMORPG HOW TO PLAY---------------------------------
+- ----------------------------------MMORPG HOW TO PLAY---------------------------------
 - Monsters spawn randomly in the areana while you are playing games on your PC. 
 
 - Attack and defeat them to gain gold and xp!
