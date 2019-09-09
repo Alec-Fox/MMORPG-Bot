@@ -107,7 +107,7 @@ spawnEmbed = (bot, statsFields) => {
                     inline: true
                 },
                 {
-                    name: `🛡️ **${statsFields["armor"]}**`,
+                    name: `🛡 **${statsFields["armor"]}**`,
                     value: '-',
                     inline: true
                 }

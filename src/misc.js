@@ -183,12 +183,12 @@ exports.sendPlayerData = (command, msg) => {
     }
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
-        .setTitle(`🅻🆅🅻 ${playerdata[userID].level} - ${msg.author.username}'s Stats`)
+        .setTitle(`🅻🆅🅻 ${c.LEVEL_EMOJI[`${playerdata[userID].level}`]}      ${msg.author.username}'s Stats`)
         .setDescription(`[${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]${hp}`)
         .addField(`⚔${playerdata[userID].attack}`, `**${playerdata[userID].weapon}**`, true)
-        .addField(`🛡️${playerdata[userID].defense}`, `**${playerdata[userID].armor}**`, true)
+        .addField(`🛡${playerdata[userID].defense}`, `**${playerdata[userID].armor}**`, true)
         .addField(`💰${playerdata[userID].currency}`, 'GOLD', true)
-        .addField("```INVENTORY: \nhealth-potions: 🍾```" + `${playerdata[userID].inventory['health-potions']}`, `XP: [${playerdata[userID].currentxp}/${playerdata[userID].maxxp}]${xpBar}`, true);
+        .addField("```🅸🅽🆅🅴🅽🆃🅾🆁🆈: \nHEALTH-POTIONS: ```" + `${playerdata[userID].inventory['health-potions']}`, `**XP: [${playerdata[userID].currentxp}/${playerdata[userID].maxxp}]**${xpBar}`, true);
 
     msg.channel.send(embed);
 }

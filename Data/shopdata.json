@@ -6,7 +6,7 @@
             "cost": 1,
             "tier": "1",
             "health": 20,
-            "img": ""
+            "img": "https://i.imgur.com/6XO7ppz.png"
         },
         {
             "name": "toothbrush",
@@ -14,7 +14,7 @@
             "cost": 1,
             "tier": "1",
             "attack": 1,
-            "img": ""
+            "img": "https://i.imgur.com/OzEGXmN.png"
         },
         {
             "name": "sponge",
@@ -22,7 +22,7 @@
             "cost": 5,
             "tier": "2",
             "attack": 2,
-            "img": ""
+            "img": "https://i.imgur.com/s1Flcxs.png"
         },
         {
             "name": "toilet-brush",
@@ -30,7 +30,7 @@
             "cost": 10,
             "tier": "2",
             "attack": 5,
-            "img": ""
+            "img": "https://i.imgur.com/QTM2Tz6.png"
         },
         {
             "name": "scrubbing-bubbles",
@@ -38,7 +38,7 @@
             "cost": 50,
             "tier": "3",
             "attack": 10,
-            "img": ""
+            "img": "https://i.imgur.com/7OoGZqp.png"
         },
         {
             "name": "latex-gloves",
@@ -46,7 +46,7 @@
             "cost": 15,
             "tier": "2",
             "armor": 5,
-            "img": ""
+            "img": "https://i.imgur.com/m180jGU.png"
         },
         {
             "name": "hazmat-suit",
@@ -54,7 +54,7 @@
             "cost": 50,
             "tier": "3",
             "armor": 10,
-            "img": ""
+            "img": "https://i.imgur.com/vYGEAE2.png"
         }
     ]
 }

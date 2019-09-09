@@ -73,6 +73,7 @@ exports.purchaseItem = (command, msg, msgArray) => {
                 msg.channel.send({
                     embed: {
                         color: 3021383,
+                        thumbnail: { url: `${shopdata.items[i].img}` },
                         title: `${msg.author.username}, you purchased: ${shopdata.items[i].name}!`
                     }
                 });
@@ -102,7 +103,7 @@ exports.shopEmbed = (command, msg) => {
     for (i = 0; i < keys.length; i++) {
         if (shopdata.items[i].type === "armor") {
             type = "armor";
-            emoji = "🛡️ ";
+            emoji = "🛡";
         } else if (shopdata.items[i].type === "weapon") {
 
             type = "attack";
