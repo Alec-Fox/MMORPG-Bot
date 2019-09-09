@@ -117,7 +117,6 @@ spawnEmbed = (bot, statsFields) => {
         if (message) {
             guild = bot.guilds.get(c.GUILD_ID);
             msgId = guild.members.get(c.BOT_USER_ID).lastMessageID;
-            console.log(msgId);
             currentfight.currentBossEmbed = msgId;
             u.exportJson(currentfight, 'currentfight');
         }
