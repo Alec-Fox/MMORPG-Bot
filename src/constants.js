@@ -43,7 +43,7 @@ module.exports = {
     ----------------------------------MMORPG HOW TO PLAY---------------------------------
     Monsters spawn randomly in the areana while you are playing games on your PC. 
 
-    Attack and defeat them to gain gold and xp!
+    Attack and defeat them to gain gold and xp! (Only person who gets final blow will receive reward and xp!)
 
     You die if your health drops to 0. You will lose a portion of your current xp on death.
 
