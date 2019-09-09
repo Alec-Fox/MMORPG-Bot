@@ -46,6 +46,10 @@ bot.on('presenceUpdate', (oldMember, newMember) => {
     spawn.maybeSpawn(bot);
 });
 
+/**
+ * listens for new member to server.
+ */
+
 bot.on('guildMemberAdd', (member) => {
     m.maybeCreatePlayerData(member.id);
 
