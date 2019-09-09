@@ -35,7 +35,7 @@ module.exports = {
 
     **!shop** -             Displays item shop.
 
-    **!!buy <item name>** - Purchases item from shop.
+    **!buy <item name>** - Purchases item from shop.
 
     **!attack** -           Attacks the monster. Deals your attack damage to them, and theirs to you.
 
