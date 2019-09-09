@@ -1,0 +1,38 @@
+{
+    "tier1": [
+        {
+            "name": "Sink Boss",
+            "level": 1,
+            "defense": 5,
+            "attack": 2,
+            "max hp": 10,
+            "current hp": 10,
+            "image": "",
+            "reward": 50
+        }
+    ],
+    "tier2": [
+        {
+            "name": "Shower Boss",
+            "level": 2,
+            "defense": 10,
+            "attack": 2,
+            "max hp": 20,
+            "current hp": 20,
+            "image": "",
+            "reward": 50
+        }
+    ],
+    "tier3": [
+        {
+            "name": "Toilet Boss",
+            "level": 3,
+            "defense": 15,
+            "attack": 4,
+            "max hp": 30,
+            "current hp": 30,
+            "image": "",
+            "reward": 50
+        }
+    ]
+}
