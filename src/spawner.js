@@ -95,7 +95,7 @@ spawnEmbed = (bot, statsFields) => {
             title: `🅻🆅🅻${statsFields["level"]}  **${statsFields["name"]}** `,
             description: statsFields["hp"],
             footer: {
-                text: `Reward: ${statsFields["reward"]} 💰`
+                text: `REWARD: ${statsFields["reward"]}💰`
             },
             image: {
                 url: statsFields["img"]
@@ -103,12 +103,12 @@ spawnEmbed = (bot, statsFields) => {
             fields: [
                 {
                     name: `⚔ **${statsFields["attack"]}**`,
-                    value: '-',
+                    value: '\u200B',
                     inline: true
                 },
                 {
                     name: `🛡 **${statsFields["armor"]}**`,
-                    value: '-',
+                    value: '\u200B',
                     inline: true
                 }
             ]

@@ -5,8 +5,8 @@
         "level": 1,
         "defense": 5,
         "attack": 2,
-        "max hp": 10,
-        "current hp": 10,
+        "max hp": 5,
+        "current hp": 5,
         "image": "https://i.imgur.com/gynZE1j.png",
         "reward": 1
     },
@@ -26,9 +26,9 @@
         "name": "Piss Covered Toilet",
         "level": 2,
         "defense": 10,
-        "attack": 2,
-        "max hp": 20,
-        "current hp": 20,
+        "attack": 4,
+        "max hp": 15,
+        "current hp": 15,
         "image": "https://i.imgur.com/gynZE1j.png",
         "reward": 2
     },
@@ -59,8 +59,8 @@
         "level": 3,
         "defense": 20,
         "attack": 5,
-        "max hp": 30,
-        "current hp": 30,
+        "max hp": 25,
+        "current hp": 25,
         "image": "https://i.imgur.com/gynZE1j.png",
         "reward": 5
     }

@@ -1,6 +1,6 @@
 const u = require('./utilities.js');
 const currentfight = require('../Data/currentfight.json');
-const playerdata = require('../Data/playerdata.json');
+const c = require('./constants.js');
 
 /**
  * Creates an object formatted for embed mob/boss use
@@ -18,20 +18,7 @@ exports.buildStatFields = (data, currentHp) => {
         hp += "❤️";
     }
     defeatedImage = 'https://previews.123rf.com/images/lkeskinen/lkeskinen1612/lkeskinen161202735/67907754-you-win-rubber-stamp-grunge-design-with-dust-scratches-effects-can-be-easily-removed-for-a-clean-cri.jpg';
-    var lvl;
-    switch (data.level) {
-        case 1: lvl = "1️⃣"; break;
-        case 2: lvl = "2️⃣"; break;
-        case 3: lvl = "3️⃣"; break;
-        case 4: lvl = "4️⃣"; break;
-        case 5: lvl = "5️⃣"; break;
-        case 6: lvl = "6️⃣"; break;
-        case 7: lvl = "7️⃣"; break;
-        case 9: lvl = "8️⃣"; break;
-        case 10: lvl = "9️⃣"; break;
-        case 11: lvl = "🔟"; break;
-    }
-
+    const lvl = c.LEVEL_EMOJI[`${data.level}`];
     statsFields['hp'] = hp;
     statsFields['attack'] = data.attack;
     statsFields['armor'] = data.defense;
