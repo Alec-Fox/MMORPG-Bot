@@ -75,7 +75,7 @@ bot.on('message', msg => {
     m.sendPlayerData(command, msg, specifiedMember);
     m.useHpPot(command, msg);
     m.helpMessage(command, msg);
-    q.maybeCreateQuest(command, msg);
+    q.maybeCreateQuest(command, msg, specifiedMember);
     q.abandonQuest(command, msg);
 });
 

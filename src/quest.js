@@ -127,9 +127,16 @@ buildQuestField = (userID) => {
  * @param {object} msg - message from user
  */
 
-exports.maybeCreateQuest = (command, msg) => {
+exports.maybeCreateQuest = (command, msg, specifiedMember) => {
     if (command !== `${prefix}quest` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
-    userID = msg.author.id;
+    if(!specifiedMember){
+        userID = msg.author.id;
+        userName = msg.author.username;
+    }
+    if(specifiedMember){
+        userID = specifiedMember.id;
+        userName = specifiedMember.displayName;
+    }
     if (!checkQuestActive(userID)) {
         generateQuest(userID);
         questEmbed = buildQuestField(userID);
