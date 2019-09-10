@@ -26,10 +26,10 @@ checkQuestActive = (userID) => {
  * @param {object} msg - message from user
  */
 
- resetQuest = (userID) =>{
+resetQuest = (userID) => {
     playerdata[userID].quest = { "active": false, "type": "", "total": null, "progress": null };
     u.exportJson(playerdata, 'playerdata');
- }
+}
 
 /**
  * Abandons Quest
@@ -72,13 +72,14 @@ chooseMob = () => {
  * @param {string} userID - msg.author.id
  * @param {string} currentMonster - current monster in combat
  */
+
 exports.questProgressCheck = (msg, currentMonster) => {
     userID = msg.author.id;
-    if(playerdata[userID].quest.type === currentMonster){
+    if (playerdata[userID].quest.type === currentMonster) {
         playerdata[userID].quest.progress++;
         u.exportJson(playerdata, 'playerdata');
 
-        if(playerdata[userID].quest.progress >= playerdata[userID].quest.total){
+        if (playerdata[userID].quest.progress >= playerdata[userID].quest.total) {
             reward = playerdata[userID].quest.reward
             playerdata[userID].currency += reward;
             u.exportJson(playerdata, 'playerdata');
@@ -89,10 +90,8 @@ exports.questProgressCheck = (msg, currentMonster) => {
                 }
             });
             resetQuest(userID);
-
         }
     }
-
 }
 
 /**
@@ -102,11 +101,9 @@ exports.questProgressCheck = (msg, currentMonster) => {
 generateQuest = (userID) => {
     questData = chooseMob();
     totalQuest = m.getRand(1, 10);
-    playerdata[userID].quest = { "active": true, "type": `${questData.name}`, "total": totalQuest, "progress": 0, "reward": totalQuest };
+    playerdata[userID].quest = { "active": true, "type": `${questData.name}`, "total": totalQuest, "progress": 0, "reward": totalQuest, "img": questData.image};
     u.exportJson(playerdata, 'playerdata');
 }
-
-
 
 /**
  * Builds quest embed fields
@@ -115,7 +112,8 @@ generateQuest = (userID) => {
 buildQuestField = (userID) => {
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
-        .setTitle(`--------------------------------**Active Quest**--------------------------------`);
+        .setTitle(`--------------------------------**Active Quest**--------------------------------`)
+        .setThumbnail(`${playerdata[userID].quest.img}`) ;
     embed.addField(`Bounty: ${playerdata[userID].quest.type}`, `Progress: [${playerdata[userID].quest.progress}/ ${playerdata[userID].quest.total}]`);
     embed.addField(`Reward: 💰${playerdata[userID].quest.reward}`, '**--------------------------------------------------------------------------------**');
 

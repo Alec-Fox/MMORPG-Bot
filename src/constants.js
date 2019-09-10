@@ -40,7 +40,7 @@ module.exports = {
         "armor": "none equiped",
         "weapon": "none equiped",
         "inventory": {"health-potions":0},
-        "quest": {"active": false, "type": "", "total": null, "progress": null, "reward": null}
+        "quest": {"active": false, "type": "", "total": null, "progress": null, "reward": null, "img": ""}
     },
     HELP_LIST: `
     -----------------------------------MMORPG Commmands----------------------------------
