@@ -79,6 +79,12 @@ module.exports = {
 
     **!abandon** -          Abandon your current quest.
 
+    **!join-queue** -       Join the queue for a dungeon.
+    **!leave-queue** -      Leave the queue for a dungeon.
+
+    **!start-dungeon** -    Start the dungeon with everyone in the queue.
+    **!leave-dungeon** -    Abandon the dungeon (Still coding in progress).
+
     ----------------------------------MMORPG HOW TO PLAY---------------------------------
     Monsters spawn randomly in the areana while you are playing games on your PC. 
 
@@ -89,6 +95,8 @@ module.exports = {
     You die if your health drops to 0. You will lose a portion of your current xp on death.
 
     Purchase items in the shop to grow stronger.
+
+    Enter Dungeons (with or without friends) to face stronger monsters with better rewards!
     `
 };
 
