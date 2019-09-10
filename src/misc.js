@@ -136,10 +136,18 @@ exports.flee = (command, msg) => {
  * @param {object} msg - message from user
  */
 
-exports.useHpPot = (command, msg) => {
-    userID = msg.author.id;
+exports.useHpPot = (command, msg, specifiedMember) => {
+    if (!specifiedMember) {
+        userID = msg.author.id;
+        userName = msg.author.username;
+    }
+    if (specifiedMember) {
+        userID = specifiedMember.id;
+        userName = specifiedMember.displayName;
+    }
+
     if (command !== `${prefix}pot` || msg.channel.parentID !== c.BOT_CATEGORY_ID) { return; }
-    if (playerdata[userID].inventory['health-potions'] < 1) {
+    if (playerdata[msg.author.id].inventory['health-potions'] < 1) {
         msg.channel.send({
             embed: {
                 color: 3021383,
@@ -148,7 +156,7 @@ exports.useHpPot = (command, msg) => {
         });
         return;
     }
-    playerdata[userID].inventory['health-potions']--;
+    playerdata[msg.author.id].inventory['health-potions']--;
     playerdata[userID].currenthp += 20;
     if (playerdata[userID].currenthp > playerdata[userID].maxhp) {
         playerdata[userID].currenthp = playerdata[userID].maxhp;
@@ -156,7 +164,7 @@ exports.useHpPot = (command, msg) => {
     msg.channel.send({
         embed: {
             color: 3021383,
-            title: `${msg.author.username} you have been healed by 20❤️!`
+            title: `${userName} you have been healed by 20❤️!`
         }
     });
     u.exportJson(playerdata, 'playerdata');

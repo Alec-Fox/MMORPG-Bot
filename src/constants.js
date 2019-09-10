@@ -51,18 +51,28 @@ module.exports = {
     **!help** -             Displays MMORPG bot commands.
 
     **!stats** -            Displays your stats.
+    **!stats @user** -      Display user's stats.                      
 
     **!shop** -             Displays item shop.
 
-    **!buy <item name>** - Purchases item from shop.
+    **!buy <item name>** -  Purchases item from shop.
 
     **!attack** -           Attacks the monster. Deals your attack damage to them, and theirs to you.
 
-    **!pot** -              Consumes 1 health-potion (heals 20).
+    **!pot** -              Consumes 1 health-potion (heals you 20❤️).
+    **!pot @user** -        Consumes 1 health-potion (heals user 20❤️).
+
+    **!quest** -            Start a quest or view your current progress.
+    **!quest @user** -      View quest for user.
+
+    **!abandon** -          Abandon your current quest.
+
     ----------------------------------MMORPG HOW TO PLAY---------------------------------
     Monsters spawn randomly in the areana while you are playing games on your PC. 
 
     Attack and defeat them to gain gold and xp! (Only person who gets final blow will receive reward and xp!)
+
+    Complete quests to gain extra gold.
 
     You die if your health drops to 0. You will lose a portion of your current xp on death.
 

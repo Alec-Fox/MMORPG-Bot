@@ -73,7 +73,7 @@ bot.on('message', msg => {
     combat.attack(command, msg)
     shop.purchaseItem(command, msg, msgArray);
     m.sendPlayerData(command, msg, specifiedMember);
-    m.useHpPot(command, msg);
+    m.useHpPot(command, msg, specifiedMember);
     m.helpMessage(command, msg);
     q.maybeCreateQuest(command, msg, specifiedMember);
     q.abandonQuest(command, msg);
