@@ -5,23 +5,31 @@ const prefix = botSettings.prefix;
 const playerdata = require('../Data/playerdata.json');
 const mobdata = require('../Data/mobdata.json');
 const m = require('./misc.js');
+const Discord = require("discord.js");
 logger = require('./logger.js');
 
 /**
  *Checks if player has quest active already
  *
- * @param {string} command - command from user
- * @param {object} msg - message from user
+ * @param {string} userID- msg.author.id
  */
 
-checkQuestActive = (userID) =>{
-    if(playerdata[userID].quest.acvtive) {return true;}
-    else{
+checkQuestActive = (userID) => {
+    if (playerdata[userID].quest.active) { return true; }
+    else {
         return false;
     }
 }
 
+/**
+ * Resets Quest
+ * @param {object} msg - message from user
+ */
 
+ resetQuest = (userID) =>{
+    playerdata[userID].quest = { "active": false, "type": "", "total": null, "progress": null };
+    u.exportJson(playerdata, 'playerdata');
+ }
 
 /**
  * Abandons Quest
@@ -33,7 +41,13 @@ checkQuestActive = (userID) =>{
 exports.abandonQuest = (command, msg) => {
     if (command !== `${prefix}abandon` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
     userID = msg.author.id;
-    playerdata[userID].quest = {"active": false, "type": "", "total": null, "progress": null};
+    resetQuest(userID);
+    msg.channel.send({
+        embed: {
+            color: 3021383,
+            title: `${msg.author.username}, you abandoned your quest!`
+        }
+    });
 }
 
 
@@ -56,19 +70,54 @@ chooseMob = () => {
  * Creates Quest if they dont have one.
  *
  * @param {string} userID - msg.author.id
+ * @param {string} currentMonster - current monster in combat
  */
-exports.questProgressCheck = (userID) => {
+exports.questProgressCheck = (msg, currentMonster) => {
+    userID = msg.author.id;
+    if(playerdata[userID].quest.type === currentMonster){
+        playerdata[userID].quest.progress++;
+        u.exportJson(playerdata, 'playerdata');
+
+        if(playerdata[userID].quest.progress >= playerdata[userID].quest.total){
+            reward = playerdata[userID].quest.reward
+            playerdata[userID].currency += reward;
+            u.exportJson(playerdata, 'playerdata');
+            msg.channel.send({
+                embed: {
+                    color: 3021383,
+                    title: `${msg.author.username}, you completed your quest and received: 💰${reward}`
+                }
+            });
+            resetQuest(userID);
+
+        }
+    }
 
 }
+
 /**
  * Builds quest embed fields
- *
+ ** @param {string} userID - msg.author.id
+ */
+generateQuest = (userID) => {
+    questData = chooseMob();
+    totalQuest = m.getRand(1, 10);
+    playerdata[userID].quest = { "active": true, "type": `${questData.name}`, "total": totalQuest, "progress": 0, "reward": totalQuest };
+    u.exportJson(playerdata, 'playerdata');
+}
+
+
+
+/**
+ * Builds quest embed fields
+ ** @param {string} userID - msg.author.id
  */
 buildQuestField = (userID) => {
     var embed = new Discord.RichEmbed()
-    .setColor(3021383)
-    .setTitle(`--------------------------------**Active Quest**--------------------------------`);
-
+        .setColor(3021383)
+        .setTitle(`--------------------------------**Active Quest**--------------------------------`);
+    embed.addField(`Bounty: ${playerdata[userID].quest.type}`, `Progress: [${playerdata[userID].quest.progress}/ ${playerdata[userID].quest.total}]`);
+    embed.addField(`Reward: 💰${playerdata[userID].quest.reward}`, '**--------------------------------------------------------------------------------**');
 
     return embed;
 }
@@ -83,10 +132,8 @@ buildQuestField = (userID) => {
 exports.maybeCreateQuest = (command, msg) => {
     if (command !== `${prefix}quest` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
     userID = msg.author.id;
-    if (!checkQuestActive(userID)){
-        questData = chooseMob();
-        totalQuest = m.getRand(5,10)
-        playerdata[userID].quest = {"active": true, "type": `${questData.name}`, "total": totalQuest, "progress": 0, "reward": totalQuest};
+    if (!checkQuestActive(userID)) {
+        generateQuest(userID);
         questEmbed = buildQuestField(userID);
         msg.channel.send(questEmbed);
 

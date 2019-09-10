@@ -1,6 +1,7 @@
 const u = require('./utilities.js');
 const m = require('./misc.js');
 const c = require('./constants.js');
+const q = require('./quest.js')
 const currentfight = require('../Data/currentfight.json');
 const playerdata = require('../Data/playerdata.json');
 const botSettings = require("../botsettings.json");
@@ -65,6 +66,8 @@ calculateReward = (msg, reward, xp) => {
     playerdata[userID].currency += reward;
     u.exportJson(playerdata, 'playerdata');
     m.calculateXp(msg, xp);
+    currentMonster = currentfight.currentBoss.name;
+    q.questProgressCheck(msg, currentMonster);
     combat.resetFight();
 }
 
