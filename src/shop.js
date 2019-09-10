@@ -38,12 +38,12 @@ checkCurrency = (msg, cost) => {
 
 equipItems = (msg, item) => {
     userID = msg.author.id;
-    if (shopdata.items[i].type === "armor" && playerdata[userID].defense < item.armor) {
+    if (shopdata.items[i].type === "armor" && playerdata[userID].defense <= item.armor) {
         playerdata[userID].defense += item.armor;
         playerdata[userID].armor = item.name;
         playerdata[userID].maxhp = 15 + item.armor;
     }
-    if (shopdata.items[i].type === "weapon" && playerdata[userID].attack < item.attack) {
+    if (shopdata.items[i].type === "weapon" && playerdata[userID].attack <= item.attack) {
         playerdata[userID].attack += item.attack;
         playerdata[userID].weapon = item.name;
     }
@@ -114,7 +114,7 @@ exports.shopEmbed = (command, msg) => {
             emoji = "❤️ ";
         }
         embed.addField(shopdata.items[i].name, `(Tier: ${shopdata.items[i].tier})`, true);
-        embed.addField("Stats:", emoji + `${shopdata.items[i][type]}`, true);
+        embed.addField("Stats:", emoji + `+ ${shopdata.items[i][type]}`, true);
         embed.addField("Cost:", "💰 " + `${shopdata.items[i].cost}`, true);
     }
     msg.guild.channels.get(c.BOT_CHANNEL_ID).send(embed);

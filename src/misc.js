@@ -32,7 +32,6 @@ exports.getRand = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
 
-    //return Math.floor(Math.random() * (max - min)) + min;
     return Math.floor(Math.random() * max)
 }
 
@@ -79,7 +78,6 @@ calculateLvlUp = (msg) => {
  * deletes non commands from command channels
  *
  * @param {object} msg - message from user
- * @param {number} xp - amount of xp to give the user
  */
 exports.calculateDeath = (msg) => {
     userID = msg.author.id
@@ -87,7 +85,8 @@ exports.calculateDeath = (msg) => {
         msg.channel.send({
             embed: {
                 color: 3021383,
-                title: `☠️☠️${msg.author.username} **YOU HAVE DIED. The monster has fleed.** ☠️☠️`
+                title: `☠️☠️${msg.author.username} **DIED. The monster fleed.** ☠️☠️`,
+                image: {url: c.DEATH_IMAGE}
             }
         });
         playerdata[userID].currentxp = Math.floor(playerdata[userID].currentxp / 2);
@@ -162,7 +161,7 @@ exports.useHpPot = (command, msg) => {
     u.exportJson(playerdata, 'playerdata');
 }
 
-/** sends message in #fortnite-bot with list of bot commands
+/** sends message in bot commands with the help list
  * 
  * @param {string} command 
  * @param {object} msg 
@@ -184,9 +183,17 @@ exports.helpMessage = (command, msg) => {
  * @param {object} msg - message from user
  */
 
-exports.sendPlayerData = (command, msg) => {
+exports.sendPlayerData = (command, msg, specifiedMember) => {
     if (command !== `${prefix}stats` || msg.channel.parentID !== c.BOT_CATEGORY_ID) { return; }
-    userID = msg.author.id;
+    if(!specifiedMember){
+        userID = msg.author.id;
+        userName = msg.author.username;
+    }
+    if(specifiedMember){
+        userID = specifiedMember.id;
+        userName = specifiedMember.displayName;
+    }
+  
     var hp = '';
     for (i = 0; i < playerdata[userID].currenthp; i++) {
         hp += "❤️";
@@ -201,7 +208,7 @@ exports.sendPlayerData = (command, msg) => {
     }
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
-        .setTitle(`🅻🆅🅻 ${c.LEVEL_EMOJI[`${playerdata[userID].level}`]}      ${msg.author.username}'s Stats`)
+        .setTitle(`🅻🆅🅻 ${c.LEVEL_EMOJI[`${playerdata[userID].level}`]}      ${userName}'s Stats`)
         .setDescription(`[${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]${hp}`)
         .addField(`⚔${playerdata[userID].attack}`, `**${playerdata[userID].weapon}**`, true)
         .addField(`🛡${playerdata[userID].defense}`, `**${playerdata[userID].armor}**`, true)

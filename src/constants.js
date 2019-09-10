@@ -6,6 +6,7 @@ module.exports = {
     BOT_CATEGORY_ID: '372246646831972352',
     GUILD_ID: '371533518653751306',
     DEV_ID: '162434234357645312',
+    DEATH_IMAGE: 'https://i.imgur.com/MmNjqTI.png',
     LEVEL_XP_TOTALS: {
         "1": 10,
         "2": 15,
@@ -36,9 +37,10 @@ module.exports = {
         "currenthp": 15,
         "defense": 0,
         "attack": 1,
-        "armor": null,
-        "weapon": null,
-        "inventory": {"health-potions":0}
+        "armor": "none equiped",
+        "weapon": "none equiped",
+        "inventory": {"health-potions":0},
+        "quest": {"active": false, "type": "", "total": null, "progress": null, "reward": null}
     },
     HELP_LIST: `
     -----------------------------------MMORPG Commmands----------------------------------

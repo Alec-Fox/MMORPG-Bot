@@ -7,6 +7,7 @@ const spawn = require('./spawner.js');
 const m = require('./misc.js');
 const shop = require('./shop.js');
 const combat = require('./combat.js');
+const q = require('./quest.js');
 
 logger = require('./logger.js');
 
@@ -71,9 +72,11 @@ bot.on('message', msg => {
     shop.shopEmbed(command, msg);
     combat.attack(command, msg)
     shop.purchaseItem(command, msg, msgArray);
-    m.sendPlayerData(command, msg);
+    m.sendPlayerData(command, msg, specifiedMember);
     m.useHpPot(command, msg);
     m.helpMessage(command, msg);
+    q.maybeCreateQuest(command, msg);
+    q.abandonQuest(command, msg);
 });
 
 //logs bot into server
