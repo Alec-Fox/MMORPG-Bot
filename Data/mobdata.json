@@ -7,7 +7,7 @@
         "attack": 2,
         "max hp": 5,
         "current hp": 5,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 1
     },
     {
@@ -17,7 +17,7 @@
         "attack": 1,
         "max hp": 10,
         "current hp": 10,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 1
     }
 ],
@@ -29,7 +29,7 @@
         "attack": 4,
         "max hp": 15,
         "current hp": 15,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 2
     },
     {
@@ -39,7 +39,7 @@
         "attack": 3,
         "max hp": 20,
         "current hp": 20,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 2
     }
 ],
@@ -51,7 +51,7 @@
         "attack": 4,
         "max hp": 30,
         "current hp": 30,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 5
     },
     {
@@ -61,7 +61,7 @@
         "attack": 5,
         "max hp": 25,
         "current hp": 25,
-        "image": "https://i.imgur.com/lvId3o9.png",
+        "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 5
     }
 ]

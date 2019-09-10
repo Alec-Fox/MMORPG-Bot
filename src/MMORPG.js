@@ -8,12 +8,14 @@ const m = require('./misc.js');
 const shop = require('./shop.js');
 const combat = require('./combat.js');
 const q = require('./quest.js');
+const d = require('./dungeon.js');
 
 logger = require('./logger.js');
 
 var bot = new Discord.Client({ autoReconnect: true });
 bot.on("ready", async () => {
     combat.resetFight();
+    m.resetDungeon();
     console.log(` ${bot.user.username} 2.0 is ready bitches!`);
     try {
         let link = await bot.generateInvite(["ADMINISTRATOR"]);
@@ -77,6 +79,11 @@ bot.on('message', msg => {
     m.helpMessage(command, msg);
     q.maybeCreateQuest(command, msg, specifiedMember);
     q.abandonQuest(command, msg);
+    d.joinDungeonQueue(command, msg);
+    d.leaveDungeonQueue(command, msg);
+    d.displayDungeonQueue(command, msg, bot);
+    d.createDungeonInstance(command, msg);
+    d.attack(command, msg);
 });
 
 //logs bot into server

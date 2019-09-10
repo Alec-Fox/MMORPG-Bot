@@ -18,9 +18,9 @@ module.exports = {
         "8": 20,
         "9": 20,
         "10": 20
-    
+
     },
-    LEVEL_EMOJI:{
+    LEVEL_EMOJI: {
         "1": '1⃣',
         "2": '2⃣',
         "3": '3⃣',
@@ -43,8 +43,20 @@ module.exports = {
         "attack": 1,
         "armor": "none equiped",
         "weapon": "none equiped",
-        "inventory": {"health-potions":0},
-        "quest": {"active": false, "type": "", "total": null, "progress": null, "reward": null, "img": ""}
+        "inventory": { "health-potions": 0 },
+        "quest": { "active": false, "type": "", "total": null, "progress": null, "reward": null, "img": "" },
+        "dungeonActive" :false,
+        "dungeonChannel": ""
+    },
+    DUNGEON_DATA: {
+            "dungeonID": "",
+            "dungeonNumber": "",
+            "players": "",
+            "currentMob1": "",
+            "currentMob2": "",
+            "currentBoss": "",
+            "progress": 1,
+            "lastMessageId" : ""
     },
     HELP_LIST: `
     -----------------------------------MMORPG Commmands----------------------------------

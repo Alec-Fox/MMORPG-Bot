@@ -97,8 +97,6 @@ exports.attack = (command, msg) => {
     u.exportJson(playerdata, 'playerdata');
     updateBossCurrentHp(msg);
     m.calculateDeath(msg);
-
-
 }
 
 /**

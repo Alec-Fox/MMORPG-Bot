@@ -29,5 +29,4 @@ exports.buildStatFields = (data, currentHp) => {
         statsFields['img'] = defeatedImage;
     } else { statsFields['img'] = data.image; };
     return statsFields;
-
 }

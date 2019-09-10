@@ -1,5 +1,6 @@
 const c = require('./constants.js');
 const u = require('./utilities.js');
+const dungeondata = require('../Data/dungeondata.json')
 const botSettings = require("../botsettings.json");
 const prefix = botSettings.prefix;
 const playerdata = require('../Data/playerdata.json');
@@ -46,7 +47,18 @@ exports.maybeCreatePlayerData = (userID) => {
     playerdata[userID] = Object.assign({}, c.NEW_PLAYER_DATA);
     u.exportJson(playerdata, 'playerdata');
 }
-
+//reset Dungeon Data after reboot
+exports.resetDungeon = () =>{
+    dungeondata.queue = [];
+    dungeondata.dungeon = [];
+    var keys = Object.keys(playerdata);
+    for(i = 0; i < keys.length; i++){
+        playerdata[keys[i]].dungeonActive = false;
+        playerdata[keys[i]].dungeonChannel = "";
+    }
+    u.exportJson(playerdata, 'playerdata');
+    u.exportJson(dungeondata, 'dungeondata');
+}
 /**
  * calculates if the player will level up
  *
