@@ -93,7 +93,7 @@ spawnEmbed = (bot, statsFields) => {
         embed: {
             color: 3021383,
             title: `🅻🆅🅻${statsFields["level"]}  **${statsFields["name"]}** `,
-            description: statsFields["hp"],
+            description:`[${currentfight.currentBoss["max hp"]}/${currentfight.currentBoss["max hp"]}]${statsFields["hp"]}`,
             footer: {
                 text: `REWARD: ${statsFields["reward"]}💰`
             },

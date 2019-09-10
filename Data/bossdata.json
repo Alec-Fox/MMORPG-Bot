@@ -7,7 +7,7 @@
             "attack": 5,
             "max hp": 30,
             "current hp": 30,
-            "image": "https://i.imgur.com/gynZE1j.png",
+            "image": "https://i.imgur.com/lvId3o9.png",
             "reward": 50
         }
     ],
@@ -19,7 +19,7 @@
             "attack": 7,
             "max hp": 40,
             "current hp": 40,
-            "image": "https://i.imgur.com/gynZE1j.png",
+            "image": "https://i.imgur.com/lvId3o9.png",
             "reward": 50
         }
     ],
@@ -31,7 +31,7 @@
             "attack": 10,
             "max hp": 50,
             "current hp": 50,
-            "image": "https://i.imgur.com/gynZE1j.png",
+            "image": "https://i.imgur.com/lvId3o9.png",
             "reward": 50
         }
     ]

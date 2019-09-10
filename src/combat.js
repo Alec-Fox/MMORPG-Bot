@@ -113,7 +113,7 @@ updateEmbed = (guild, statsFields) => {
         embed: {
             color: 3021383,
             title: `🅻🆅🅻${statsFields["level"]}  **${statsFields["name"]}** `,
-            description: statsFields["hp"],
+            description: `[${currentfight.currentBoss["current hp"]}/${currentfight.currentBoss["max hp"]}]${statsFields["hp"]}`,
             footer: {
                 text: `Reward: ${statsFields["reward"]} 💰`
             },
