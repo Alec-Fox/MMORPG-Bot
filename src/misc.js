@@ -55,6 +55,7 @@ exports.maybeCreatePlayerData = (userID) => {
 
 calculateLvlUp = (msg) => {
     userID = msg.author.id;
+    if(playerdata[userID].level >= 10){return;}
     if (playerdata[userID].currentxp >= playerdata[userID].maxxp) {
         playerdata[userID].level++;
         playerdata[userID].maxhp++;
@@ -86,7 +87,7 @@ exports.calculateDeath = (msg) => {
             embed: {
                 color: 3021383,
                 title: `☠️☠️${msg.author.username} **DIED. The monster fleed.** ☠️☠️`,
-                image: {url: c.DEATH_IMAGE}
+                image: { url: c.DEATH_IMAGE }
             }
         });
         playerdata[userID].currentxp = Math.floor(playerdata[userID].currentxp / 2);
@@ -185,35 +186,38 @@ exports.helpMessage = (command, msg) => {
 
 exports.sendPlayerData = (command, msg, specifiedMember) => {
     if (command !== `${prefix}stats` || msg.channel.parentID !== c.BOT_CATEGORY_ID) { return; }
-    if(!specifiedMember){
+    if (!specifiedMember) {
         userID = msg.author.id;
         userName = msg.author.username;
     }
-    if(specifiedMember){
+    if (specifiedMember) {
         userID = specifiedMember.id;
         userName = specifiedMember.displayName;
     }
-  
+
     var hp = '';
     for (i = 0; i < playerdata[userID].currenthp; i++) {
         hp += "❤️";
     }
     var xpBar = '';
+    xpIconWhite = '⬜';
+    xpIconBlack = '⬛';
+
     for (i = 0; i < playerdata[userID].currentxp; i++) {
-        xpBar += '⬜';
+        xpBar += xpIconWhite;
     }
     remainingXp = playerdata[userID].maxxp - playerdata[userID].currentxp;
     for (i = 0; i < remainingXp; i++) {
-        xpBar += '⬛';
+        xpBar += xpIconBlack;
     }
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
         .setTitle(`🅻🆅🅻 ${c.LEVEL_EMOJI[`${playerdata[userID].level}`]}      ${userName}'s Stats`)
-        .setDescription(`[${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]${hp}`)
+        .setDescription(`**HP:[${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]**${hp}`)
         .addField(`⚔${playerdata[userID].attack}`, `**${playerdata[userID].weapon}**`, true)
         .addField(`🛡${playerdata[userID].defense}`, `**${playerdata[userID].armor}**`, true)
         .addField(`💰${playerdata[userID].currency}`, 'GOLD', true)
-        .addField("```🅸🅽🆅🅴🅽🆃🅾🆁🆈: \nHEALTH-POTIONS: ```" + `${playerdata[userID].inventory['health-potions']}`, `**XP: [${playerdata[userID].currentxp}/${playerdata[userID].maxxp}]**${xpBar}`, true);
+        .addField("```🅸🅽🆅🅴🅽🆃🅾🆁🆈: \nHEALTH-POTIONS: ```" + `${playerdata[userID].inventory['health-potions']}`, `**XP:[${playerdata[userID].currentxp}/${playerdata[userID].maxxp}]**\n${xpBar}`, true);
 
     msg.channel.send(embed);
 }
