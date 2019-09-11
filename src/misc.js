@@ -262,8 +262,7 @@ exports.leaderboard = async (command, msg) => {
         leaderboardData.push({ "username": userName, "lvl": playerdata[keys[i]].level });
     }
 
-    leaderboardData.sort(function (a, b) { return b.lvl - a.lvl })
-    console.log(leaderboardData);
+    leaderboardData.sort(function (a, b) { return b.lvl - a.lvl });
 
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
@@ -282,9 +281,18 @@ exports.leaderboard = async (command, msg) => {
  * @param {object} msg - message from user
  */
 
-exports.achievements = (command, msg) =>{
+exports.achievements = (command, msg, specifiedMember) =>{
+    if (!specifiedMember) {
+        userID = msg.author.id;
+        userName = msg.author.username;
+    }
+    if (specifiedMember) {
+        userID = specifiedMember.id;
+        userName = specifiedMember.displayName;
+    }
+
     if (command !== `${prefix}achievements` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
-    var achievements = playerdata[msg.author.id].achievements.split("");
+    var achievements = playerdata[userID].achievements.split("");
     var sortedAchievements = achievements.sort();
     var achievementIcons = "";
     for(i = 0; i < sortedAchievements.length; i++){
@@ -301,7 +309,7 @@ exports.achievements = (command, msg) =>{
     msg.channel.send({
         embed: {
             color: 3021383,
-            title: `${msg.author.username}'s Achievements: `,
+            title: `${userName}'s Achievements: `,
             description: `${achievementIcons}`
         }
     });

@@ -38,7 +38,7 @@
     {
         "name": "Shit Covered Toilet",
         "level": 2,
-        "defense": 120,
+        "defense": 20,
         "attack": 1,
         "max hp": 30,
         "current hp": 30,

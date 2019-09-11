@@ -87,7 +87,7 @@ bot.on('message', msg => {
     d.leaveDungeonInstance(command, msg);
     m.flee(command, msg);
     m.leaderboard(command, msg);
-    m.achievements(command, msg);
+    m.achievements(command, msg, specifiedMember);
 });
 
 //logs bot into server
