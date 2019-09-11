@@ -15,7 +15,7 @@ exports.buildStatFields = (data, currentHp) => {
     for (i = 0; i < data[currentHp]; i++) {
         hp += "❤️";
     }
-    defeatedImage = 'https://previews.123rf.com/images/lkeskinen/lkeskinen1612/lkeskinen161202735/67907754-you-win-rubber-stamp-grunge-design-with-dust-scratches-effects-can-be-easily-removed-for-a-clean-cri.jpg';
+    defeatedImage = 'https://i.imgur.com/5e3tLwn.png';
     const lvl = c.LEVEL_EMOJI[`${data.level}`];
     statsFields['hp'] = hp;
     statsFields['attack'] = data.attack;

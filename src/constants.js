@@ -83,7 +83,7 @@ module.exports = {
     **!leave-queue** -      Leave the queue for a dungeon.
 
     **!start-dungeon** -    Start the dungeon with everyone in the queue.
-    **!leave-dungeon** -    Abandon the dungeon (Still coding in progress).
+    **!leave-dungeon** -    Abandon the dungeon 
 
     ----------------------------------MMORPG HOW TO PLAY---------------------------------
     Monsters spawn randomly in the areana while you are playing games on your PC. 

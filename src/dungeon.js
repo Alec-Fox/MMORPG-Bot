@@ -81,7 +81,7 @@ buildStatFields2 = (data, currentHp) => {
     for (i = 0; i < data[currentHp]; i++) {
         hp += "❤️";
     }
-    defeatedImage = 'https://previews.123rf.com/images/lkeskinen/lkeskinen1612/lkeskinen161202735/67907754-you-win-rubber-stamp-grunge-design-with-dust-scratches-effects-can-be-easily-removed-for-a-clean-cri.jpg';
+    defeatedImage = 'https://i.imgur.com/5e3tLwn.png';
     const lvl = c.LEVEL_EMOJI[`${data.level}`];
     statsFields['hp'] = hp;
     statsFields['attack'] = data.attack;
@@ -318,7 +318,8 @@ addDungeonToData = (channel, dungNumber) => {
     newDungeonData.currentMob2 = dungeonMob2;
     newDungeonData.currentMob3 = dungeonBoss;
     newDungeonData.currentFight = dungeonMob1;
-    dungeondata.dungeon.push(newDungeonData)
+    dungeondata.dungeon.push(newDungeonData);
+    dungeondata.queue = [];
     u.exportJson(dungeondata, 'dungeondata');
 }
 
@@ -351,10 +352,34 @@ chooseMob2 = () => {
 * @param {object} msg - message from user
 */
 
-exports.leaveDungeonInstance = (command, msg) => {
+exports.leaveDungeonInstance = async (command, msg) => {
     userID = msg.author.id;
-    if (command !== `${prefix}leave-dungeon` || msg.channel.id !== playerdata[userID].dungeonChannel) { return; }
+    if (command !== `${prefix}leave-dungeon` || msg.channel.id !== playerdata[userID].dungeonChannel || typeof (dungeondata.dungeon.findIndex(({ dungeonID }) => dungeonID === playerdata[userID].dungeonChannel)) === "undefined") { return; }
     const dungeonInstance = dungeondata.dungeon.findIndex(({ dungeonID }) => dungeonID === playerdata[userID].dungeonChannel);
+    var newPlayers = dungeondata.dungeon[dungeonInstance].players.filter(function (user) { return user.id !== `${msg.author.id}` });
+    dungeondata.dungeon[dungeonInstance].players = newPlayers;
+    let channel = await msg.client.channels.get(playerdata[userID].dungeonChannel);
+    channel.overwritePermissions(userID, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
+    u.exportJson(dungeondata, 'dungeondata');
+
+    msg.guild.channels.get(c.BOT_CHANNEL_ID).send({
+        embed: {
+            color: 3021383,
+            title: `${msg.author.username} you have abandoned the dungeon!`
+        }
+    });
+    if (newPlayers.length < 1) {
+        let dungChannel = await msg.guild.channels.get(playerdata[userID].dungeonChannel)
+        dungChannel.delete();
+
+    }
+    playerdata[userID].dungeonChannel = "";
+    playerdata[userID].dungeonActive = false;
+    u.exportJson(playerdata, 'playerdata');
+
+
+
+
 }
 
 /**
