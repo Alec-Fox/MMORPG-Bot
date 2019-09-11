@@ -67,6 +67,7 @@ module.exports = {
     HELP_LIST: `
     -----------------------------------MMORPG Commmands----------------------------------
     **!help** -             Displays MMORPG bot commands.
+
     **!leaderboard** -      Displays the leaderboard.
 
     **!stats** -            Displays your stats.
@@ -91,7 +92,9 @@ module.exports = {
     **!leave-queue** -      Leave the queue for a dungeon.
 
     **!start-dungeon** -    Start the dungeon with everyone in the queue.
-    **!leave-dungeon** -    Abandon the dungeon 
+    **!leave-dungeon** -    Abandon the dungeon .
+
+    **!achievements**  -    View your boss achievements.
 
     ----------------------------------MMORPG HOW TO PLAY---------------------------------
     Monsters spawn randomly in the areana while you are playing games on your PC. 
