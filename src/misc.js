@@ -119,9 +119,8 @@ exports.calculateDeath = (msg) => {
  * * @param {number} xp - xp reward
  */
 
-exports.calculateXp = (msg, xp) => {
-    userID = msg.author.id;
-    playerdata[userID].currentxp += xp;
+exports.calculateXp = (msg, xp, player) => {
+    playerdata[player].currentxp += xp;
     u.exportJson(playerdata, 'playerdata');
     calculateLvlUp(msg);
 }

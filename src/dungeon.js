@@ -120,11 +120,9 @@ updateBossCurrentHp2 = (msg, index) => {
             });
             updateEmbed2(guild, buildStatFields2(dungeondata.dungeon[index].currentFight, 'current hp'), index);
             if (dungeondata.dungeon[index].currentFight['current hp'] <= 0) {
-                reward = dungeondata.dungeon[index].currentFight.reward;
-                xp = dungeondata.dungeon[index].currentFight.level;
                 dungeondata.dungeon[index].progress++;
                 u.exportJson(dungeondata, 'dungeondata');
-                calculateReward2(msg, reward, xp, index);
+                calculateReward2(msg, index);
                 maybeContinueDungeon(msg, index);
             }
         }
@@ -152,7 +150,6 @@ maybeContinueDungeon = async (msg, index) => {
                 title: `***Another mob approaches!***`
             }
         });
-        console.log(dungeondata.dungeon[index].currentFight);
         updateEmbed2(guild, buildStatFields2(dungeondata.dungeon[index].currentFight, 'current hp'), index);
     } else {
         var embed = new Discord.RichEmbed()
@@ -161,6 +158,10 @@ maybeContinueDungeon = async (msg, index) => {
             .setDescription(`***These brave heroes have scrubbed the dungeon clean!***`)
 
         for (i = 0; i < dungeondata.dungeon[index].players.length; i++) {
+            player = dungeondata.dungeon[index].players[i].id;
+            reward = Math.floor(dungeondata.dungeon[index].total_reward / dungeondata.dungeon[index].players.length);
+            xp = Math.floor(dungeondata.dungeon[index].total_xp / dungeondata.dungeon[index].players.length);
+            calculateSharedRewards(msg, player, reward, xp);
             let user = await client.fetchUser(dungeondata.dungeon[index].players[i].id);
             embed.addField(`${user.username}`, `\u200B`, true);
             playerdata[user.id].dungeonActive = false;
@@ -180,13 +181,18 @@ maybeContinueDungeon = async (msg, index) => {
  * @param {number} index - index for the dungeon instance for the user
  */
 
-calculateReward2 = (msg, reward, xp, index) => {
+calculateReward2 = (msg, index) => {
     userID = msg.author.id;
-    playerdata[userID].currency += reward;
-    u.exportJson(playerdata, 'playerdata');
-    m.calculateXp(msg, xp);
     currentMonster = dungeondata.dungeon[index].currentFight.name;
     q.questProgressCheck(msg, currentMonster);
+}
+
+calculateSharedRewards = (msg, player, reward, xp) => {
+    playerdata[player].currency += reward;
+    m.calculateXp(msg, xp, player);
+    u.exportJson(playerdata, 'playerdata');
+    
+
 }
 
 /**
@@ -306,7 +312,9 @@ addDungeonToData = (channel, dungNumber) => {
         "currentMob3": "",
         "progress": 1,
         "lastMessageId": "",
-        "currentFight": ""
+        "currentFight": "",
+        "total_xp": 0,
+        "total_reward": 0
     }
     newDungeonData.dungeonID = channel.id;
     newDungeonData.players = dungeondata.queue;
@@ -318,6 +326,10 @@ addDungeonToData = (channel, dungNumber) => {
     newDungeonData.currentMob2 = dungeonMob2;
     newDungeonData.currentMob3 = dungeonBoss;
     newDungeonData.currentFight = dungeonMob1;
+    totalGold = dungeonMob1.reward + dungeonMob2.reward + dungeonBoss.reward;
+    totalXp = dungeonMob1.level + dungeonMob2.level + dungeonBoss.level;
+    newDungeonData.total_xp = totalXp;
+    newDungeonData.total_reward = totalGold;
     dungeondata.dungeon.push(newDungeonData);
     dungeondata.queue = [];
     u.exportJson(dungeondata, 'dungeondata');

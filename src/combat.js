@@ -63,9 +63,10 @@ updateBossCurrentHp = (msg) => {
 
 calculateReward = (msg, reward, xp) => {
     userID = msg.author.id;
+    player = msg.author.id
     playerdata[userID].currency += reward;
     u.exportJson(playerdata, 'playerdata');
-    m.calculateXp(msg, xp);
+    m.calculateXp(msg, xp, player);
     currentMonster = currentfight.currentBoss.name;
     q.questProgressCheck(msg, currentMonster);
     combat.resetFight();
