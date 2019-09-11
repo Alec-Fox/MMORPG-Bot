@@ -3,7 +3,7 @@
         {
             "name": "health-potion",
             "type": "consumable",
-            "cost": 1,
+            "cost": 5,
             "tier": "1",
             "health": 10,
             "img": "https://i.imgur.com/6XO7ppz.png"

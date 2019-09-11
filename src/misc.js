@@ -169,14 +169,14 @@ exports.useHpPot = (command, msg, specifiedMember) => {
         return;
     }
     playerdata[msg.author.id].inventory['health-potions']--;
-    playerdata[userID].currenthp += 20;
+    playerdata[userID].currenthp += 10;
     if (playerdata[userID].currenthp > playerdata[userID].maxhp) {
         playerdata[userID].currenthp = playerdata[userID].maxhp;
     }
     msg.channel.send({
         embed: {
             color: 3021383,
-            title: `${userName} you have been healed by 20❤️!`
+            title: `${userName} you have been healed by 10❤️!`
         }
     });
     u.exportJson(playerdata, 'playerdata');

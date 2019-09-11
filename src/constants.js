@@ -71,8 +71,8 @@ module.exports = {
 
     **!attack** -           Attacks the monster. Deals your attack damage to them, and theirs to you.
 
-    **!pot** -              Consumes 1 health-potion (heals you 20❤️).
-    **!pot @user** -        Consumes 1 health-potion (heals user 20❤️).
+    **!pot** -              Consumes 1 health-potion (heals you 10❤️).
+    **!pot @user** -        Consumes 1 health-potion (heals user 10❤️).
 
     **!quest** -            Start a quest or view your current progress.
     **!quest @user** -      View quest for user.
