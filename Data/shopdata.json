@@ -5,7 +5,7 @@
             "type": "consumable",
             "cost": 1,
             "tier": "1",
-            "health": 20,
+            "health": 10,
             "img": "https://i.imgur.com/6XO7ppz.png"
         },
         {
@@ -29,7 +29,7 @@
             "type": "weapon",
             "cost": 10,
             "tier": "2",
-            "attack": 5,
+            "attack": 3,
             "img": "https://i.imgur.com/QTM2Tz6.png"
         },
         {
@@ -37,7 +37,7 @@
             "type": "weapon",
             "cost": 50,
             "tier": "3",
-            "attack": 10,
+            "attack": 5,
             "img": "https://i.imgur.com/7OoGZqp.png"
         },
         {

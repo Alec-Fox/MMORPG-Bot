@@ -4,11 +4,11 @@
             "name": "Sink Boss",
             "level": 5,
             "defense": 20,
-            "attack": 5,
-            "max hp": 30,
-            "current hp": 30,
+            "attack": 7,
+            "max hp": 40,
+            "current hp": 40,
             "image": "https://i.imgur.com/pb0Splr.png",
-            "reward": 50
+            "reward": 20
         }
     ],
     "tier2": [
@@ -16,11 +16,11 @@
             "name": "Shower Boss",
             "level": 7,
             "defense": 30,
-            "attack": 7,
-            "max hp": 40,
-            "current hp": 40,
+            "attack": 9,
+            "max hp": 55,
+            "current hp": 55,
             "image": "https://i.imgur.com/pb0Splr.png",
-            "reward": 50
+            "reward": 35
         }
     ],
     "tier3": [
@@ -28,9 +28,9 @@
             "name": "Toilet Boss",
             "level": 10,
             "defense": 40,
-            "attack": 10,
-            "max hp": 50,
-            "current hp": 50,
+            "attack": 12,
+            "max hp": 70,
+            "current hp": 70,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 50
         }
