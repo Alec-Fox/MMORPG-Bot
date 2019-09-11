@@ -42,7 +42,7 @@ updateBossCurrentHp = (msg) => {
                     title: `${msg.author.username}: ⚔${playerdata[userID].attack} - [${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]${hp}`
                 }
             });
-            updateEmbed(guild, build.buildStatFields(currentfight.currentBoss, 'current hp'))
+            updateEmbed(guild, build.buildStatFields(currentfight.currentBoss, 'current hp'));
             if (currentfight.currentBoss['current hp'] <= 0) {
                 reward = currentfight.currentBoss.reward;
                 xp = currentfight.currentBoss.level;

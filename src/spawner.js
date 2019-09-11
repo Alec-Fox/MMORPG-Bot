@@ -4,6 +4,7 @@ const build = require('./buildstatsfields.js');
 const mobdata = require('../Data/mobdata.json');
 const bossdata = require('../Data/bossdata.json');
 const currentfight = require('../Data/currentfight.json');
+const combat = require('./combat.js')
 const u = require('./utilities.js');
 logger = require('./logger.js');
 
@@ -35,7 +36,9 @@ exports.maybeSpawn = (bot) => {
 exports.spawnMob = (bot) => {
     currentfight.mobSpawned = true;
     u.exportJson(currentfight, 'currentfight');
-    spawnEmbed(bot, build.buildStatFields(chooseMob(), 'max hp'));
+    chooseMob();
+    
+    spawnEmbed(bot, build.buildStatFields(currentfight.currentBoss, 'max hp'));
 
 }
 
@@ -78,7 +81,10 @@ chooseMob = () => {
     } else if (tiernum < 90) { tier = 'tier2' }
     else if (tiernum < 101) { tier = 'tier3' }
     var pick = m.getRand(0, mobdata[tier].length);
-    return mobdata[tier][pick];
+    currentfight.currentBoss = mobdata[tier][pick];
+    currentfight.currentBoss['current hp'] = currentfight.currentBoss['max hp'];
+    u.exportJson(currentfight, 'currentfight');
+
 }
 
 /**
@@ -114,11 +120,7 @@ spawnEmbed = (bot, statsFields) => {
             ]
         }
     }).then(message => {
-        if (message) {
-            guild = bot.guilds.get(c.GUILD_ID);
-            msgId = guild.members.get(c.BOT_USER_ID).lastMessageID;
-            currentfight.currentBossEmbed = msgId;
+            currentfight.currentBossEmbed = message.id;
             u.exportJson(currentfight, 'currentfight');
-        }
     });
 }

@@ -83,7 +83,7 @@ bot.on('message', msg => {
     d.leaveDungeonQueue(command, msg);
     d.displayDungeonQueue(command, msg, bot);
     d.createDungeonInstance(command, msg);
-    d.attack(command, msg);
+    d.attack2(command, msg);
 });
 
 //logs bot into server

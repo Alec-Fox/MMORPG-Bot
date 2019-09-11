@@ -34,7 +34,6 @@ exports.createDungeonInstance = (command, msg) => {
         const dungNumber = m.getRand(1, 999);
         msg.guild.createChannel(`Dungeon ${dungNumber}`, { type: "text", parent: msg.guild.channels.get(c.BOT_CATEGORY_ID) }, overwrites)
             .then((channel) => {
-                //channel.setParent(c.BOT_CATEGORY_ID);
                 addDungeonToData(channel, dungNumber);
                 for (i = 0; i < dungeondata.dungeon[dungeondata.dungeon.length - 1].players.length; i++) {
                     playerId = dungeondata.dungeon[dungeondata.dungeon.length - 1].players[i].id;
@@ -57,7 +56,7 @@ exports.createDungeonInstance = (command, msg) => {
                         image: ``
                     }
                 });
-                spawnFirstDungeonMonster(channel, buildStatFields(dungeondata.dungeon[dungeondata.dungeon.length - 1].currentMob1, 'max hp'));
+                spawnFirstDungeonMonster(channel, buildStatFields2(dungeondata.dungeon[dungeondata.dungeon.length - 1].currentMob1, 'max hp'));
             });
     }
     else {
@@ -76,7 +75,7 @@ exports.createDungeonInstance = (command, msg) => {
  * @param {string} currentHp - designation to build with current hp or max hp
  */
 
-buildStatFields = (data, currentHp) => {
+buildStatFields2 = (data, currentHp) => {
     var statsFields = new Object();
     var hp = '';
     for (i = 0; i < data[currentHp]; i++) {
@@ -103,7 +102,7 @@ buildStatFields = (data, currentHp) => {
  * @param {number} index - index for the dungeon instance for the user
  */
 
-updateBossCurrentHp = (msg, index) => {
+updateBossCurrentHp2 = (msg, index) => {
     guild = msg.guild;
     userID = msg.author.id;
     msg.channel.fetchMessage(dungeondata.dungeon[index].lastMessageId).then(msg2 => {
@@ -119,13 +118,13 @@ updateBossCurrentHp = (msg, index) => {
                     title: `${msg.author.username}: ⚔${playerdata[userID].attack} - [${playerdata[userID].currenthp}/${playerdata[userID].maxhp}]${hp}`
                 }
             });
-            updateEmbed(guild, buildStatFields(dungeondata.dungeon[index].currentFight, 'current hp'), index)
+            updateEmbed2(guild, buildStatFields2(dungeondata.dungeon[index].currentFight, 'current hp'), index);
             if (dungeondata.dungeon[index].currentFight['current hp'] <= 0) {
                 reward = dungeondata.dungeon[index].currentFight.reward;
                 xp = dungeondata.dungeon[index].currentFight.level;
                 dungeondata.dungeon[index].progress++;
                 u.exportJson(dungeondata, 'dungeondata');
-                calculateReward(msg, reward, xp, index);
+                calculateReward2(msg, reward, xp, index);
                 maybeContinueDungeon(msg, index);
             }
         }
@@ -145,13 +144,16 @@ maybeContinueDungeon = async (msg, index) => {
     client = msg.client
     if (dungeondata.dungeon[index].progress < 4) {
         dungeondata.dungeon[index].currentFight = dungeondata.dungeon[index][`currentMob${dungeondata.dungeon[index].progress}`];
+        dungeondata.dungeon[index].currentFight['current hp'] = dungeondata.dungeon[index].currentFight['max hp'];
+        u.exportJson(dungeondata, 'dungeondata');
         msg.channel.send({
             embed: {
                 color: 3021383,
                 title: `***Another mob approaches!***`
             }
         });
-        updateEmbed(guild, buildStatFields(dungeondata.dungeon[index].currentFight, 'current hp'), index);
+        console.log(dungeondata.dungeon[index].currentFight);
+        updateEmbed2(guild, buildStatFields2(dungeondata.dungeon[index].currentFight, 'current hp'), index);
     } else {
         var embed = new Discord.RichEmbed()
             .setColor(3021383)
@@ -178,7 +180,7 @@ maybeContinueDungeon = async (msg, index) => {
  * @param {number} index - index for the dungeon instance for the user
  */
 
-calculateReward = (msg, reward, xp, index) => {
+calculateReward2 = (msg, reward, xp, index) => {
     userID = msg.author.id;
     playerdata[userID].currency += reward;
     u.exportJson(playerdata, 'playerdata');
@@ -230,7 +232,7 @@ spawnFirstDungeonMonster = (channel, statsFields) => {
  * 
  */
 
-exports.attack = (command, msg) => {
+exports.attack2 = (command, msg) => {
     userID = msg.author.id;
     if (command !== `${prefix}attack` || msg.channel.id !== playerdata[userID].dungeonChannel) { return; }
     const dungeonInstance = dungeondata.dungeon.findIndex(({ dungeonID }) => dungeonID === playerdata[userID].dungeonChannel);
@@ -240,7 +242,7 @@ exports.attack = (command, msg) => {
     u.exportJson(playerdata, 'playerdata');
     u.exportJson(dungeondata, 'dungeondata');
 
-    updateBossCurrentHp(msg, dungeonInstance);
+    updateBossCurrentHp2(msg, dungeonInstance);
     m.calculateDeath(msg);
 }
 
@@ -253,7 +255,7 @@ exports.attack = (command, msg) => {
  * 
  */
 
-updateEmbed = (guild, statsFields, index) => {
+updateEmbed2 = (guild, statsFields, index) => {
     guild.channels.get(dungeondata.dungeon[index].dungeonID).send({
         embed: {
             color: 3021383,
@@ -309,9 +311,9 @@ addDungeonToData = (channel, dungNumber) => {
     newDungeonData.dungeonID = channel.id;
     newDungeonData.players = dungeondata.queue;
     newDungeonData.dungeonNumber = dungNumber;
-    dungeonMob1 = chooseMob();
-    dungeonMob2 = chooseMob();
-    dungeonBoss = chooseBoss();
+    dungeonMob1 = chooseMob2();
+    dungeonMob2 = chooseMob2();
+    dungeonBoss = chooseBoss2();
     newDungeonData.currentMob1 = dungeonMob1;
     newDungeonData.currentMob2 = dungeonMob2;
     newDungeonData.currentMob3 = dungeonBoss;
@@ -322,7 +324,7 @@ addDungeonToData = (channel, dungNumber) => {
 
 //chooses a random boss from the boss pool
 
-chooseBoss = () => {
+chooseBoss2 = () => {
     var tiernum = m.getRand(1, 100)
     if (tiernum < 70) { tier = 'tier1' }
     else if (tiernum < 90) { tier = 'tier2' }
@@ -333,7 +335,7 @@ chooseBoss = () => {
 
 //chooses random mobs from the mob pool
 
-chooseMob = () => {
+chooseMob2 = () => {
     var tiernum = m.getRand(1, 100)
     if (tiernum < 70) { tier = 'tier1' }
     else if (tiernum < 90) { tier = 'tier2' }

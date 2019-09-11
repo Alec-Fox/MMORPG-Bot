@@ -10,8 +10,6 @@ const c = require('./constants.js');
  */
 
 exports.buildStatFields = (data, currentHp) => {
-    currentfight.currentBoss = data;
-    u.exportJson(currentfight, 'currentfight');
     var statsFields = new Object();
     var hp = '';
     for (i = 0; i < data[currentHp]; i++) {
