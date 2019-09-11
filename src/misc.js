@@ -275,14 +275,34 @@ exports.leaderboard = async (command, msg) => {
     msg.channel.send(embed);
 }
 
+/**
+ * Displays your achievements.
+ *
+ * @param {string} command - command from user
+ * @param {object} msg - message from user
+ */
+
 exports.achievements = (command, msg) =>{
     if (command !== `${prefix}achievements` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
-    var achievements = playerdata[msg.author.id].achievements.split(" ");
+    var achievements = playerdata[msg.author.id].achievements.split("");
+    var sortedAchievements = achievements.sort();
+    var achievementIcons = "";
+    for(i = 0; i < sortedAchievements.length; i++){
+        if(sortedAchievements[i] === "1"){
+            achievementIcons += c.ACHIEVEMENTS["1"];
+        }
+        if(sortedAchievements[i] === "2"){
+            achievementIcons += c.ACHIEVEMENTS["2"];
+        }
+        if(sortedAchievements[i] === "3"){
+            achievementIcons += c.ACHIEVEMENTS["3"];
+        }
+    }
     msg.channel.send({
         embed: {
             color: 3021383,
             title: `${msg.author.username}'s Achievements: `,
-            description: `${achievements.sort()}`
+            description: `${achievementIcons}`
         }
     });
     

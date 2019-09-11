@@ -7,6 +7,11 @@ module.exports = {
     GUILD_ID: '371533518653751306',
     DEV_ID: '162434234357645312',
     DEATH_IMAGE: 'https://i.imgur.com/MmNjqTI.png',
+    ACHIEVEMENTS: {
+        "1": "🥉", 
+        "2": "🥈",
+        "3": "🥇"
+    },
     LEVEL_XP_TOTALS: {
         "1": 10,
         "2": 15,

@@ -9,7 +9,7 @@
             "current hp": 40,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 20,
-            "achievement" : "🥉"
+            "achievement" : "1"
         }
     ],
     "tier2": [
@@ -22,7 +22,7 @@
             "current hp": 55,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 35,
-            "achievement" : "🥈"
+            "achievement" : "2"
         }
     ],
     "tier3": [
@@ -35,7 +35,7 @@
             "current hp": 70,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 50,
-            "achievement" : "🥇"
+            "achievement" : "3"
         }
     ]
 }
