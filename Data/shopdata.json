@@ -37,7 +37,7 @@
             "type": "weapon",
             "cost": 50,
             "tier": "3",
-            "attack": 5,
+            "attack": 4,
             "img": "https://i.imgur.com/7OoGZqp.png"
         },
         {
