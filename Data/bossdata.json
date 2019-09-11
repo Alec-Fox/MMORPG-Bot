@@ -8,7 +8,8 @@
             "max hp": 40,
             "current hp": 40,
             "image": "https://i.imgur.com/pb0Splr.png",
-            "reward": 20
+            "reward": 20,
+            "achievement" : "🥉"
         }
     ],
     "tier2": [
@@ -20,7 +21,8 @@
             "max hp": 55,
             "current hp": 55,
             "image": "https://i.imgur.com/pb0Splr.png",
-            "reward": 35
+            "reward": 35,
+            "achievement" : "🥈"
         }
     ],
     "tier3": [
@@ -32,7 +34,8 @@
             "max hp": 70,
             "current hp": 70,
             "image": "https://i.imgur.com/pb0Splr.png",
-            "reward": 50
+            "reward": 50,
+            "achievement" : "🥇"
         }
     ]
 }

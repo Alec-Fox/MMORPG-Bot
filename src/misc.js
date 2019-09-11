@@ -61,7 +61,7 @@ exports.resetDungeon = () => {
     u.exportJson(dungeondata, 'dungeondata');
 }
 /**
- * calculates if the player will level up
+ * Calculates if the player will level up
  *
  * @param {object} msg - message from user
  */
@@ -144,7 +144,7 @@ exports.flee = (command, msg) => {
 }
 
 /**
- * uses health-pot if the user has one
+ * Uses health-pot if the user has one
  *
  * @param {string} command - command from user
  * @param {object} msg - message from user
@@ -184,7 +184,7 @@ exports.useHpPot = (command, msg, specifiedMember) => {
     u.exportJson(playerdata, 'playerdata');
 }
 
-/** sends message in bot commands with the help list
+/** Sends message in bot commands with the help list
  * 
  * @param {string} command 
  * @param {object} msg 
@@ -200,7 +200,7 @@ exports.helpMessage = (command, msg) => {
 }
 
 /**
- * sends stats player data to embed
+ * Sends stats player data to embed
  *
  * @param {string} command - command from user
  * @param {object} msg - message from user
@@ -244,7 +244,12 @@ exports.sendPlayerData = (command, msg, specifiedMember) => {
     msg.channel.send(embed);
 }
 
-
+/**
+ * Displays leaderboards
+ *
+ * @param {string} command - command from user
+ * @param {object} msg - message from user
+ */
 
 exports.leaderboard = async (command, msg) => {
     if (command !== `${prefix}leaderboard` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
@@ -263,9 +268,22 @@ exports.leaderboard = async (command, msg) => {
     var embed = new Discord.RichEmbed()
         .setColor(3021383)
         .setTitle(`**LEADERBOARDS**`);
-    
-    for(i = 0; i < leaderboardData.length; i++){
+
+    for (i = 0; i < leaderboardData.length; i++) {
         embed.addField(`**${leaderboardData[i].username}**`, `🅻🆅🅻 ${c.LEVEL_EMOJI[leaderboardData[i].lvl]}`, true);
     }
     msg.channel.send(embed);
+}
+
+exports.achievements = (command, msg) =>{
+    if (command !== `${prefix}achievements` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
+    var achievements = playerdata[msg.author.id].achievements.split(" ");
+    msg.channel.send({
+        embed: {
+            color: 3021383,
+            title: `${msg.author.username}'s Achievements: `,
+            description: `${achievements.sort()}`
+        }
+    });
+    
 }

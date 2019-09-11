@@ -173,7 +173,7 @@ maybeContinueDungeon = async (msg, index) => {
     }
 }
 /**
- * Creates an object formatted for embed mob/boss use
+ * Calculates reward for killing a monster (individual reward)
  *
  * @param {object} msg - message from user
  * @param {number} reward - amount of gold for killing monster
@@ -184,8 +184,19 @@ maybeContinueDungeon = async (msg, index) => {
 calculateReward2 = (msg, index) => {
     userID = msg.author.id;
     currentMonster = dungeondata.dungeon[index].currentFight.name;
+    if(dungeondata.dungeon[index].currentFight.achievement !== "undefined"){ 
+    playerdata[userID].achievements += dungeondata.dungeon[index].currentFight.achievement;
+    }
+    
     q.questProgressCheck(msg, currentMonster);
 }
+
+/**
+ * Calculates shared rewards for dungeon party
+ *
+ * @param {string} command - command from user
+ * @param {object} msg - message from user
+ */
 
 calculateSharedRewards = (msg, player, reward, xp) => {
     playerdata[player].currency += reward;

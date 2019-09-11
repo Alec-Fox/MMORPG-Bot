@@ -46,7 +46,8 @@ module.exports = {
         "inventory": { "health-potions": 1 },
         "quest": { "active": false, "type": "", "total": null, "progress": null, "reward": null, "img": "" },
         "dungeonActive" :false,
-        "dungeonChannel": ""
+        "dungeonChannel": "",
+        "ahievements": ""
     },
     DUNGEON_DATA: {
             "dungeonID": "",
