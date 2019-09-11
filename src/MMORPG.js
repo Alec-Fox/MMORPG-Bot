@@ -85,6 +85,7 @@ bot.on('message', msg => {
     d.createDungeonInstance(command, msg);
     d.attack2(command, msg);
     d.leaveDungeonInstance(command, msg);
+    m.flee(command, msg);
 });
 
 //logs bot into server

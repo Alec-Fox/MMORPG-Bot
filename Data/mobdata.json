@@ -26,21 +26,21 @@
         "name": "Piss Covered Toilet",
         "level": 2,
         "defense": 15,
-        "attack": 5,
+        "attack": 2,
         "max hp": 20,
         "current hp": 20,
         "image": "https://i.imgur.com/pb0Splr.png",
-        "reward": 2
+        "reward": 3
     },
     {
         "name": "Shit Covered Toilet",
         "level": 2,
         "defense": 120,
-        "attack": 4,
+        "attack": 1,
         "max hp": 30,
         "current hp": 30,
         "image": "https://i.imgur.com/pb0Splr.png",
-        "reward": 2
+        "reward": 3
     }
 ],
 "tier3": [
@@ -49,7 +49,7 @@
         "level": 3,
         "defense": 15,
         "attack": 6,
-        "max hp": 45,
+        "max hp": 35,
         "current hp": 45,
         "image": "https://i.imgur.com/pb0Splr.png",
         "reward": 5

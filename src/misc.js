@@ -47,6 +47,7 @@ exports.maybeCreatePlayerData = (userID) => {
     playerdata[userID] = Object.assign({}, c.NEW_PLAYER_DATA);
     u.exportJson(playerdata, 'playerdata');
 }
+
 //reset Dungeon Data after reboot
 exports.resetDungeon = () =>{
     dungeondata.queue = [];
@@ -70,15 +71,16 @@ calculateLvlUp = (msg) => {
     if(playerdata[userID].level >= 10){return;}
     if (playerdata[userID].currentxp >= playerdata[userID].maxxp) {
         playerdata[userID].level++;
-        playerdata[userID].maxhp++;
+        playerdata[userID].attack++;
         playerdata[userID].currentxp = 0;
-        playerdata[userID].currenthp = playerdata[userID].maxhp;
         playerdata[userID].maxxp = c.LEVEL_XP_TOTALS[`${playerdata[userID].level}`];
-
-        msg.channel.send({
+        playerdata[userID].maxhp++;
+        playerdata[userID].currenthp = playerdata[userID].maxhp;
+        msg.guild.channels.get(c.BOT_CHANNEL_ID).send({
             embed: {
                 color: 3021383,
-                title: `${msg.author.username} **YOU ARE NOW ** 🅻🆅🅻 ${playerdata[userID].level}!`
+                title: `${msg.author.username} **YOU ARE NOW ** 🅻🆅🅻 ${c.LEVEL_EMOJI[playerdata[userID].level]}!`,
+                image: { url: `https://i.imgur.com/BncqEFS.png` }
             }
         });
 
@@ -88,10 +90,11 @@ calculateLvlUp = (msg) => {
 }
 
 /**
- * deletes non commands from command channels
+ * Calculates player death
  *
  * @param {object} msg - message from user
  */
+
 exports.calculateDeath = (msg) => {
     userID = msg.author.id
     if (playerdata[userID].currenthp <= 0) {
@@ -110,7 +113,7 @@ exports.calculateDeath = (msg) => {
 }
 
 /**
- * adds xp to user
+ * Adds xp to user
  *
  * @param {object} msg - message from user
  * * @param {number} xp - xp reward
@@ -124,18 +127,18 @@ exports.calculateXp = (msg, xp) => {
 }
 
 /**
- * uses health-pot if the user has one
+ * Runs away from monster - reseting combat
  *
  * @param {string} command - command from user
  * @param {object} msg - message from user
  */
 
 exports.flee = (command, msg) => {
-    if (command !== `${prefix}flee` || msg.channel.parentID !== c.ARENA_CATEGORY_ID) { return; }
+    if (command !== `${prefix}flee` || msg.channel.id !== c.ARENA_CHANNEL_ID) { return; }
     msg.channel.send({
         embed: {
             color: 3021383,
-            title: `${msg.author.username}, you run away from the monster!`
+            title: `🏃 ${msg.author.username}, you run away from the monster!`
         }
     });
     combat.resetFight();

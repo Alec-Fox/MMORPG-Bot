@@ -36,14 +36,14 @@ module.exports = {
         "level": 1,
         "currentxp": 0,
         "maxxp": 10,
-        "currency": 3,
+        "currency": 5,
         "maxhp": 15,
         "currenthp": 15,
         "defense": 0,
         "attack": 1,
         "armor": "none equiped",
         "weapon": "none equiped",
-        "inventory": { "health-potions": 0 },
+        "inventory": { "health-potions": 1 },
         "quest": { "active": false, "type": "", "total": null, "progress": null, "reward": null, "img": "" },
         "dungeonActive" :false,
         "dungeonChannel": ""
@@ -70,6 +70,7 @@ module.exports = {
     **!buy <item name>** -  Purchases item from shop.
 
     **!attack** -           Attacks the monster. Deals your attack damage to them, and theirs to you.
+    **!flee** -             Runs away from the monster.
 
     **!pot** -              Consumes 1 health-potion (heals you 10❤️).
     **!pot @user** -        Consumes 1 health-potion (heals user 10❤️).
