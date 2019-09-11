@@ -49,11 +49,11 @@ exports.maybeCreatePlayerData = (userID) => {
 }
 
 //reset Dungeon Data after reboot
-exports.resetDungeon = () =>{
+exports.resetDungeon = () => {
     dungeondata.queue = [];
     dungeondata.dungeon = [];
     var keys = Object.keys(playerdata);
-    for(i = 0; i < keys.length; i++){
+    for (i = 0; i < keys.length; i++) {
         playerdata[keys[i]].dungeonActive = false;
         playerdata[keys[i]].dungeonChannel = "";
     }
@@ -68,7 +68,7 @@ exports.resetDungeon = () =>{
 
 calculateLvlUp = (msg) => {
     userID = msg.author.id;
-    if(playerdata[userID].level >= 10){return;}
+    if (playerdata[userID].level >= 10) { return; }
     if (playerdata[userID].currentxp >= playerdata[userID].maxxp) {
         playerdata[userID].level++;
         playerdata[userID].attack++;
@@ -245,3 +245,28 @@ exports.sendPlayerData = (command, msg, specifiedMember) => {
     msg.channel.send(embed);
 }
 
+
+
+exports.leaderboard = async (command, msg) => {
+    if (command !== `${prefix}leaderboard` || msg.channel.id !== c.BOT_CHANNEL_ID) { return; }
+    var keys = Object.keys(playerdata);
+    var leaderboardData = []
+    client = msg.client;
+    for (i = 0; i < keys.length; i++) {
+        let user = await client.fetchUser(keys[i]);
+        userName = user.username;
+        leaderboardData.push({ "username": userName, "lvl": playerdata[keys[i]].level });
+    }
+
+    leaderboardData.sort(function (a, b) { return b.lvl - a.lvl })
+    console.log(leaderboardData);
+
+    var embed = new Discord.RichEmbed()
+        .setColor(3021383)
+        .setTitle(`**LEADERBOARDS**`);
+    
+    for(i = 0; i < leaderboardData.length; i++){
+        embed.addField(`**${leaderboardData[i].username}**`, `🅻🆅🅻 ${c.LEVEL_EMOJI[leaderboardData[i].lvl]}`, true);
+    }
+    msg.channel.send(embed);
+}

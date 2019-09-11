@@ -61,6 +61,7 @@ module.exports = {
     HELP_LIST: `
     -----------------------------------MMORPG Commmands----------------------------------
     **!help** -             Displays MMORPG bot commands.
+    **!leaderboard** -      Displays the leaderboard.
 
     **!stats** -            Displays your stats.
     **!stats @user** -      Display user's stats.                      
