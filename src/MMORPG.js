@@ -63,8 +63,7 @@ bot.on('guildMemberAdd', (member) => {
  */
 
 bot.on('message', msg => {
-    if (msg.author.bot) return;
-    if (msg.channel.type === "dm") return;
+    if (msg.author.bot || msg.channel.type === "dm") return;
     //messages turned into array to read messageArray[0] as a command for bot
     let msgArray = msg.content.split(" ");
     let command = msgArray[0];
@@ -89,6 +88,7 @@ bot.on('message', msg => {
     m.leaderboard(command, msg);
     m.achievements(command, msg, specifiedMember);
 });
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 //logs bot into server
 bot.login(botSettings.token);

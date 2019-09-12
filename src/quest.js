@@ -56,7 +56,7 @@ exports.abandonQuest = (command, msg) => {
  *
  */
 
-chooseMob = () => {
+chooseMob3 = () => {
     var tiernum = m.getRand(1, 100)
     if (tiernum < 70) {
         tier = 'tier1'
@@ -99,8 +99,8 @@ exports.questProgressCheck = (msg, currentMonster) => {
  ** @param {string} userID - msg.author.id
  */
 generateQuest = (userID) => {
-    questData = chooseMob();
-    totalQuest = m.getRand(1, 10);
+    questData = chooseMob3();
+    totalQuest = m.getRand(1, 15);
     playerdata[userID].quest = { "active": true, "type": `${questData.name}`, "total": totalQuest, "progress": 0, "reward": totalQuest, "img": questData.image};
     u.exportJson(playerdata, 'playerdata');
 }
