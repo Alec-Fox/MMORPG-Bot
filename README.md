@@ -1,4 +1,4 @@
-# MMORPG BOT
+# MMORPG BOT[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c2190eebe2d4d94890547f0f7b7b3ce)](https://www.codacy.com/manual/alecfox8/MMORPG-Bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alec-Fox/MMORPG-Bot&amp;utm_campaign=Badge_Grade)
 
 ------------
 ### Commands
