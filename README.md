@@ -4,7 +4,7 @@
 [Update Log](https://github.com/Alec-Fox/MMORPG-Bot/blob/master/CHANGELOG.md)
 
 
-Discord bot with the following commands:
+Discord bot with the following commands:<br />
 `Please Note - You must be within the Bot Category in order to use commands.`
 1. Shop
       + .shop - `Displays the item shop`
