@@ -1,4 +1,4 @@
-# Changelog
+# Change log
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 - Added change log.
 - Fixed bug where monster would spawn already dead.
 - Achievements - view your accolades.
-- Level up graphics
+- Level-up graphics.
 - Now displays user's current health during combat
 - leaderboards - view your rank among the server.
 - Dungeons now offer shared loot and xp for all participating players.
@@ -21,8 +21,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Re-factored entire code to have improved performance.
 - Changed monster defeated image.
-- Balanced combat stats
-- Balanced monster difficulty
+- Balanced combat stats.
+- Balanced monster difficulty.
+- Updated README to have all bot functionality.
 
 ### Removed
-- mutliple lines of redundant code
+- mutliple lines of redundant code.
