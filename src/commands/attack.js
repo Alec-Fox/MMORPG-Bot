@@ -98,18 +98,18 @@ const maybeContinueDung = async (message, index) => {
         const embedID = await client.channels.get(message.channel.id).send(monsterEmbed(monster));
         // eslint-disable-next-line require-atomic-updates
         dungeondata.dungeon[index].lastMessageId = embedID.id;
+        return;
     }
-    else {
-        const embed = constructEmbed('**-----------------------Victorious!-------------------------**', '**These brave heroers have scrubbed the dungeon clean!**', null, null);
-        for (let i = 0; i < dungeondata.dungeon[index].players.length; i++) {
-            const user = await client.fetchUser(dungeondata.dungeon[index].players[i].id);
-            embed.addField(`${user.username}`, '\u200B', true);
-            playerdata[user.id].dungeonActive = false;
-            playerdata[user.id].dungeonChannel = '';
-            exportJson(playerdata, 'playerdata');
-        }
-        client.channels.get(BOT_CHANNEL_ID).send(embed);
-        client.channels.get(dungeondata.dungeon[index].dungeonID).delete();
+    const embed = constructEmbed('**-----------------------Victorious!-------------------------**', '**These brave heroers have scrubbed the dungeon clean!**', null, null);
+    for (let i = 0; i < dungeondata.dungeon[index].players.length; i++) {
+        const user = await client.fetchUser(dungeondata.dungeon[index].players[i].id);
+        embed.addField(`${user.username}`, '\u200B', true);
+        playerdata[user.id].dungeonActive = false;
+        playerdata[user.id].dungeonChannel = '';
+        exportJson(playerdata, 'playerdata');
     }
+    client.channels.get(BOT_CHANNEL_ID).send(embed);
+    client.channels.get(dungeondata.dungeon[index].dungeonID).delete();
+
 
 };
