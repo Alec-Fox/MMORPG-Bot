@@ -1,5 +1,5 @@
 {
-    "tier1": [
+    "mob" : [
         {
             "name": "Sink Boss",
             "level": 5,
@@ -9,10 +9,11 @@
             "current hp": 40,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 20,
-            "achievement" : "1"
-        }
-    ],
-    "tier2": [
+            "achievement": "1",
+            "tier":  1,
+            "deathimage": "https://i.imgur.com/5e3tLwn.png"
+            
+        },
         {
             "name": "Shower Boss",
             "level": 7,
@@ -22,10 +23,10 @@
             "current hp": 55,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 35,
-            "achievement" : "2"
-        }
-    ],
-    "tier3": [
+            "achievement": "2",
+            "tier": 2,
+            "deathimage": "https://i.imgur.com/5e3tLwn.png"
+        },
         {
             "name": "Toilet Boss",
             "level": 10,
@@ -35,7 +36,9 @@
             "current hp": 70,
             "image": "https://i.imgur.com/pb0Splr.png",
             "reward": 50,
-            "achievement" : "3"
+            "achievement": "3",
+            "tier": 3,
+            "deathimage": "https://i.imgur.com/5e3tLwn.png"
         }
     ]
 }
