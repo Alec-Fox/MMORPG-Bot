@@ -1,1 +1,5 @@
-botsettings.json
+# Packages
+node_modules/
+
+# Env
+.Env
