@@ -1,7 +1,7 @@
 {
     "items": [
         {
-            "name": "health-potion",
+            "name": "pot",
             "type": "consumable",
             "cost": 5,
             "tier": "1",
@@ -29,15 +29,15 @@
             "type": "weapon",
             "cost": 10,
             "tier": "2",
-            "attack": 3,
+            "attack": 5,
             "img": "https://i.imgur.com/QTM2Tz6.png"
         },
         {
             "name": "scrubbing-bubbles",
             "type": "weapon",
-            "cost": 50,
+            "cost": 75,
             "tier": "3",
-            "attack": 4,
+            "attack": 9,
             "img": "https://i.imgur.com/7OoGZqp.png"
         },
         {
