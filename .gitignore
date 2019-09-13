@@ -4,3 +4,4 @@ node_modules/
 
 # Env
 .Env
+.env 
