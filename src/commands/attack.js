@@ -22,10 +22,14 @@ module.exports = {
             const playerHpBar = generateHeartsBar(playerdata[userID].currenthp);
             const hpBarEmbed = constructEmbed(`[${playerdata[userID].currenthp}/${(playerdata[userID].maxhp + playerdata[userID].basehp)}] ${playerHpBar}`, '', null, null);
             client.channels.get(message.channel.id).send(hpBarEmbed);
-            calculateDeath(message);
             await message.channel.fetchMessage(currentfight.currentBossEmbed).then(oldEmbed => { oldEmbed.delete(); });
             const embedID = await client.channels.get(message.channel.id).send(monsterEmbed(monster));
             currentfight.currentBossEmbed = embedID.id;
+            if (calculateDeath(message)) {
+                exportJson(currentfight, 'currentfight');
+                exportJson(playerdata, 'playerdata');
+                return;
+            }
             if (currentfight.currentBoss['current hp'] <= 0) {
                 const players = [{ id: userID }];
                 calculateReward(message, players, monster.reward, monster.level);

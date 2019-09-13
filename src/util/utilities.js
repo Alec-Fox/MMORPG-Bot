@@ -57,7 +57,9 @@ exports.calculateDeath = (message) => {
         playerdata[userID].currenthp = Math.floor((playerdata[userID].maxhp + playerdata[userID].basehp) / 3);
         this.resetFight();
         this.exportJson(playerdata, 'playerdata');
+        return true;
     }
+    return false;
 };
 
 exports.calculateXp = (message, xp, player) => {
@@ -137,8 +139,8 @@ exports.maybeSpawnMob = client => {
 };
 
 exports.spawnMonster = async (client, channelId, filePath, spawnArena) => {
-    const monster = this.chooseMonster(filePath);
-    monster['current_hp'] = monster['max hp'];
+    const monster = await this.chooseMonster(filePath);
+    monster['current hp'] = monster['max hp'];
     const embedID = await client.channels.get(channelId).send(this.monsterEmbed(monster));
     try {
         if (spawnArena) {
@@ -153,7 +155,6 @@ exports.spawnMonster = async (client, channelId, filePath, spawnArena) => {
 };
 
 exports.monsterEmbed = (monster) => {
-    // if(monster['current hp'] <= 0) return (this.constructEmbed('You killed it!', '', mobdata., null));
     const hpBar = this.generateHeartsBar(monster['current hp']);
     const monsterImage = (monster['current hp'] >= 0) ? monster.image : monster.deathimage;
     const embed = new RichEmbed()

@@ -6,7 +6,7 @@ module.exports = {
     BOT_CATEGORY_ID: '372246646831972352',
     GUILD_ID: '371533518653751306',
     DEV_ID: '162434234357645312',
-    DEATH_IMAGE: 'https://i.imgur.com/MmNjqTI.png',
+    DEATH_IMAGE: 'https://i.imgur.com/BVScqCl.png',
     LEVEL_UP_IMAGE: 'https://i.imgur.com/BncqEFS.png',
     ACHIEVEMENTS: {
         '1': '🥉',
@@ -57,6 +57,7 @@ module.exports = {
         'dungeonChannel': '',
         'achievements': '',
         'lasthpbar': '',
+        'Class' : 'none',
     },
     DUNGEON_DATA: {
         'dungeonID': '',
@@ -71,5 +72,11 @@ module.exports = {
         'total_xp': 0,
         'total_reward': 0,
     },
+    CLASSES: [
+        { 'name': 'Assasain', 'ability': 'Critical Chance %', 'value': 50 },
+        { 'name': 'Healer', 'ability': 'Heal ❤️', 'value': 10 },
+        { 'name': 'Tank', 'ability': 'Armor Bonus 🛡', 'value': 50 },
+        { 'name': 'Sneaker', 'ability': 'Passive Evasion 🏃‍', 'value': 25 },
+        { 'name': 'Sharp Shooter', 'ability': 'Passive Damage Bonus ⚔', 'value': 10 }],
 };
 
