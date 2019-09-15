@@ -1,5 +1,5 @@
+// this code will break if there are over 25 members in the guild. need to refactor before release.
 const { constructEmbed } = require('../util/utilities.js');
-const playerdata = require('../data/playerdata.json');
 const { LEVEL_EMOJI } = require('../util/constants.js');
 
 module.exports = {
@@ -10,13 +10,10 @@ module.exports = {
     cooldown: 5,
     async execute(message) {
         message.delete();
-        const keys = Object.keys(playerdata);
+        const keys = Object.keys(message.client.players);
         const leaderboardData = [];
-        const client = message.client;
         for (let i = 0; i < keys.length; i++) {
-            const user = await client.fetchUser(keys[i]);
-            const userName = user.username;
-            leaderboardData.push({ 'username': userName, 'lvl': playerdata[keys[i]].level });
+            leaderboardData.push({ 'username': message.client.players[keys[i]].name, 'lvl': message.client.players[keys[i]].level });
         }
         leaderboardData.sort(function(a, b) { return b.lvl - a.lvl; });
         const embedFields = [];

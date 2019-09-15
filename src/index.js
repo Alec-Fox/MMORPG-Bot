@@ -3,9 +3,11 @@ const { readdirSync } = require('fs');
 const { join } = require('path');
 const AlecClient = require('./struct/Client');
 const { Collection } = require('discord.js');
-const { BOT_CATEGORY_ID } = require('./util/constants.js');
-const { maybeCreatePlayerData, resetDungeon, maybeSpawnMob, resetFight } = require('./util/utilities.js');
+const { BOT_CATEGORY_ID, ARENA_CHANNEL_ID } = require('./util/constants.js');
+const { maybeCreatePlayerData, maybeSpawnMob } = require('./util/utilities.js');
 const client = new AlecClient({ token: process.env.DISCORD_TOKEN, prefix: process.env.DISCORD_PREFIX });
+const playerdata = require('./data/playerdata.json');
+const Player = require('./struct/Player.js');
 
 const commandFiles = readdirSync(join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -14,20 +16,26 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-resetDungeon();
-resetFight();
 console.log(`${client.user.username} READY!`);
+// eslint-disable-next-line no-unused-vars
+function generateAllPlayers(member, memberId, allPlayersMap) {
+    maybeCreatePlayerData(memberId);
+    Object.assign(client.players, { [memberId] : new Player(playerdata[memberId]) });
+    client.players[memberId].name = member.displayName;
+}
+const guild = client.guilds.first();
+const allPlayersMap = guild.members;
+allPlayersMap.forEach(generateAllPlayers);
+client.monster.spawn(client, ARENA_CHANNEL_ID);
 });
 
 
 client.on('message', message => {
     if (!message.content.startsWith(client.config.prefix) || message.author.bot || message.channel.parentID !== BOT_CATEGORY_ID) return;
-    maybeCreatePlayerData(message.member.id);
     const args = message.content.slice(client.config.prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
-    if (command.guildOnly && message.channel.type !== 'text') return message.reply('I can\'t execute that command inside DMs!');
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments, ${message.author}!`;
         if (command.usage) reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
@@ -64,9 +72,7 @@ client.on('error', (error) => {console.error(error);});
 client.on('disconnect', (error) => {
     console.error(error);
     client.login(client.config.token);
-    resetFight();
-    resetDungeon();
 
 });
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
+client.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 client.login(client.config.token);

@@ -1,4 +1,7 @@
 const { Client, Collection } = require('discord.js');
+const Monster = require('./Monster.js');
+const { chooseMonster } = require('../util/utilities.js');
+const mob = new Monster(chooseMonster('mobdata'));
 
 module.exports = class extends Client {
 	constructor(config) {
@@ -14,5 +17,12 @@ module.exports = class extends Client {
 		this.queue = new Map();
 
 		this.config = config;
+
+		this.players = {};
+
+		this.monster = mob;
+
+		this.dungeon = { queue: [], instance: {} };
+
 	}
 };

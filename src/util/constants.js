@@ -8,6 +8,10 @@ module.exports = {
     DEV_ID: '162434234357645312',
     DEATH_IMAGE: 'https://i.imgur.com/BVScqCl.png',
     LEVEL_UP_IMAGE: 'https://i.imgur.com/BncqEFS.png',
+    CLEAN_BATHROOM_IMAGE: 'https://i.imgur.com/Rd3HtaE.png',
+    DIRTY_BATHROOM_IMAGE: 'https://i.imgur.com/P93YXN6.png',
+    XP_ICON_BLACK: '⬛',
+    XP_ICON_WHITE: '⬜',
     ACHIEVEMENTS: {
         '1': '🥉',
         '2': '🥈',
@@ -39,6 +43,7 @@ module.exports = {
         '10': '🔟',
     },
     NEW_PLAYER_DATA: {
+        'name': '',
         'level': 1,
         'currentxp': 0,
         'maxxp': 10,
@@ -57,10 +62,9 @@ module.exports = {
         'dungeonChannel': '',
         'achievements': '',
         'lasthpbar': '',
-        'Class' : 'none',
+        'class' : 'none',
     },
     DUNGEON_DATA: {
-        'dungeonID': '',
         'dungeonNumber': '',
         'players': '',
         'currentMob1': '',
@@ -73,10 +77,9 @@ module.exports = {
         'total_reward': 0,
     },
     CLASSES: [
-        { 'name': 'Assasain', 'ability': 'Critical Chance %', 'value': 50 },
-        { 'name': 'Healer', 'ability': 'Heal ❤️', 'value': 10 },
-        { 'name': 'Tank', 'ability': 'Armor Bonus 🛡', 'value': 50 },
-        { 'name': 'Sneaker', 'ability': 'Passive Evasion 🏃‍', 'value': 25 },
-        { 'name': 'Sharp Shooter', 'ability': 'Passive Damage Bonus ⚔', 'value': 10 }],
+        { 'name': 'Assasain', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Critical Chance', 'valuepassive': 50 },
+        { 'name': 'Healer', 'active': 'Heal', 'valueactive': 50, 'passive': 'HP Regen', 'valuepassive': 10 },
+        { 'name': 'Tank', 'active': 'Block', 'valueactive' : 100, 'passive': 'Armor', 'valuepassive': 50 },
+        { 'name': 'Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },
+        { 'name': 'Sharp Shooter', 'active': 'Snipe', 'valueactive': 200, 'passive': 'Damage Bonus', 'valuepassive': 30 }],
 };
-

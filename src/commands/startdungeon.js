@@ -1,7 +1,6 @@
-const dungeondata = require('../data/dungeondata');
-const playerdata = require('../data/playerdata');
-const { exportJson, constructEmbed, getRand, chooseMonster, monsterEmbed } = require('../util/utilities.js');
-const { GUILD_ID, BOT_CATEGORY_ID, DUNGEON_DATA } = require('../util/constants.js');
+const { constructEmbed, getRand, chooseMonster } = require('../util/utilities.js');
+const { GUILD_ID, BOT_CATEGORY_ID, DUNGEON_DATA, DIRTY_BATHROOM_IMAGE } = require('../util/constants.js');
+const Monster = require('../struct/Monster.js');
 
 module.exports = {
     name: 'start',
@@ -9,13 +8,12 @@ module.exports = {
     usage: 'dungeon',
     args: true,
     cooldown: 5,
-    async execute(message) {
+    execute(message) {
         message.delete();
         const userID = message.member.id;
         let inQueue = false;
-        console.log(dungeondata.queue);
-        for (let i = 0; i < dungeondata.queue.length; i++) if (dungeondata.queue[i].id === userID) inQueue = true;
-        if (inQueue && !playerdata[userID].dungeonActive) {
+        for (let i = 0; i < message.client.dungeon.queue.length; i++) if (message.client.dungeon.queue[i].id === userID) inQueue = true;
+        if (inQueue && !message.client.players[userID].dungeonActive) {
             const overwrites = [{
                 id: GUILD_ID,
                 denied: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
@@ -24,20 +22,19 @@ module.exports = {
             message.guild.createChannel(`Dungeon ${dungNumber}`, { type: 'text', parent: message.guild.channels.get(BOT_CATEGORY_ID), permissionOverwrites: overwrites })
                 .then((channel) => {
                     addDungeonToData(channel, dungNumber);
-                    for (let i = 0; i < dungeondata.dungeon[dungeondata.dungeon.length - 1].players.length; i++) {
-                        const playerId = dungeondata.dungeon[dungeondata.dungeon.length - 1].players[i].id;
+                    for (let i = 0; i < message.client.dungeon.instance[channel.id].players.length; i++) {
+                        const playerId = message.client.dungeon.instance[channel.id].players[i].id;
                         channel.overwritePermissions(playerId, { VIEW_CHANNEL: true, SEND_MESSAGES: true });
-                        playerdata[playerId].dungeonActive = true;
-                        playerdata[playerId].dungeonChannel = channel.id;
-                        exportJson(playerdata, 'playerdata');
+                        message.client.players[playerId].dungeonActive = true;
+                        message.client.players[playerId].dungeonChannel = channel.id;
                     }
                     channel.send(constructEmbed('Let the Fight Begin!', '', null, null));
-                    message.channel.send(constructEmbed(`Enter Dungeon ${dungNumber} with your party ${message.member.displayName}!`, '', null, null));
-                    channel.send(monsterEmbed(dungeondata.dungeon[dungeondata.dungeon.length - 1].currentFight)).then(
-                        (msg) => { dungeondata.dungeon[dungeondata.dungeon.length - 1].lastMessageId = msg.id; exportJson(dungeondata, 'dungeondata'); });
-                    exportJson(dungeondata, 'dungeondata');
+                    message.channel.send(constructEmbed(`Enter Dungeon ${dungNumber} with your party ${message.member.displayName}!`, '', DIRTY_BATHROOM_IMAGE, null));
+                    channel.send(message.client.dungeon.instance[channel.id].currentFight.embed()).then(
+                        (msg) => { message.client.dungeon.instance[channel.id].currentFight.message = msg;});
                     return;
                 });
+                return;
         }
         message.channel.send(constructEmbed(`${message.member.displayName} you are not in a queue or already in a dungeon! join a queue to start a dungeon!`, '', null, null));
 
@@ -45,19 +42,23 @@ module.exports = {
 };
 
 const addDungeonToData = (channel, dungNumber) => {
-    const newDungeonData = DUNGEON_DATA;
-    newDungeonData.dungeonID = channel.id;
-    newDungeonData.players = dungeondata.queue;
-    newDungeonData.dungeonNumber = dungNumber;
-    newDungeonData.currentMob1 = chooseMonster('mobdata');
-    newDungeonData.currentMob2 = chooseMonster('mobdata');
-    newDungeonData.currentMob3 = chooseMonster('bossdata');
-    newDungeonData.currentFight = newDungeonData.currentMob1;
-    const totalGold = newDungeonData.currentMob1.reward + newDungeonData.currentMob2.reward + newDungeonData.currentMob3.reward;
-    const totalXp = newDungeonData.currentMob1.level + newDungeonData.currentMob2.level + newDungeonData.currentMob3.level;
-    newDungeonData.total_xp = totalXp;
-    newDungeonData.total_reward = totalGold;
-    dungeondata.dungeon.push(newDungeonData);
-    dungeondata.queue = [];
-    exportJson(dungeondata, 'dungeondata');
+    const channelID = channel.id;
+    const newDungeonData = { [channelID]: {} };
+    newDungeonData[channelID] = DUNGEON_DATA;
+    newDungeonData[channelID].progress = 1;
+    newDungeonData[channelID].players = channel.client.dungeon.queue;
+    newDungeonData[channelID].dungeonNumber = dungNumber;
+    const mob1 = new Monster (chooseMonster('mobdata'));
+    const mob2 = new Monster (chooseMonster('mobdata'));
+    const mob3 = new Monster (chooseMonster('bossdata'));
+    newDungeonData[channelID].currentMob1 = mob1;
+    newDungeonData[channelID].currentMob2 = mob2;
+    newDungeonData[channelID].currentMob3 = mob3;
+    newDungeonData[channelID].currentFight = newDungeonData[channelID].currentMob1;
+    const totalGold = newDungeonData[channelID].currentMob1.reward + newDungeonData[channelID].currentMob2.reward + newDungeonData[channelID].currentMob3.reward;
+    const totalXp = newDungeonData[channelID].currentMob1.lvl + newDungeonData[channelID].currentMob2.lvl + newDungeonData[channelID].currentMob3.lvl;
+    newDungeonData[channelID].total_xp = totalXp;
+    newDungeonData[channelID].total_reward = totalGold;
+    channel.client.dungeon.instance = Object.assign(channel.client.dungeon.instance, newDungeonData);
+    channel.client.dungeon.queue = [];
 };

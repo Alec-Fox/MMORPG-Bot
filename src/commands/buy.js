@@ -1,6 +1,5 @@
-const { constructEmbed, exportJson } = require('../util/utilities.js');
+const { constructEmbed } = require('../util/utilities.js');
 const { items } = require('../data/shopdata.json');
-const playerdata = require('../data/playerdata.json');
 
 module.exports = {
     name: 'buy',
@@ -17,10 +16,8 @@ module.exports = {
         const itemList = [];
         for (let i = 0; i < keys.length; i++) {
             itemList.push(items[i].name);
-            if (itemSelection === items[i].name && checkCurrency(userID, items[i].cost)) {
-                playerdata[userID].currency -= items[i].cost;
-                exportJson(playerdata, 'playerdata');
-                equipItems(userID, items[i]);
+            if (itemSelection === items[i].name && message.client.players[userID].canAfford(items[i].cost)) {
+                message.client.players[userID].equip(message, items[i]);
                 return message.channel.send({
                     embed: {
                         color: 3021383,
@@ -29,33 +26,11 @@ module.exports = {
                     },
                 });
             }
-            if (itemSelection === items[i].name && !checkCurrency(userID, items[i].cost)) {
-                const title = `${message.member.displayName}, you are too broke to afford: ${items[i].name}`;
-                const embed = constructEmbed(title, '', null, null);
+            if (itemSelection === items[i].name && !message.client.players[userID].canAfford(items[i].cost)) {
+                const embed = constructEmbed(`${message.member.displayName}, you are too broke to afford: ${items[i].name}`, '', null, null);
                 return message.channel.send(embed);
             }
         }
         if (!itemList.includes(itemSelection)) return message.channel.send(constructEmbed(`${message.member.displayName}, that item doesnt exist. Type !shop to view available items.`, '', null, null));
     },
-};
-
-const checkCurrency = (userID, cost) => {
-    if (playerdata[userID].currency >= cost) return true;
-    return false;
-};
-
-const equipItems = (userID, item) => {
-    if (item.type === 'armor') {
-        playerdata[userID].defense = 0 + item.armor;
-        playerdata[userID].armor = item.name;
-        playerdata[userID].basehp = 15 + item.armor;
-    }
-    if (item.type === 'weapon') {
-        playerdata[userID].attack = 1 + item.attack;
-        playerdata[userID].weapon = item.name;
-    }
-    if (item.type === 'consumable') {
-        playerdata[userID].inventory['health-potions'] += 1;
-    }
-    exportJson(playerdata, 'playerdata');
 };
