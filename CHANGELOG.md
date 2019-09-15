@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 - Class specific stats
 - Player vs player combat
 
+## [0.2.1] - 2010-09-16
+### Added
+- !buy qty
+- error handling for numerous promises
+---
+
 ## [0.2.0] - 2010-09-15
 ### Added
 - Player class and Monster class
