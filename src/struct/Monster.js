@@ -5,6 +5,12 @@ module.exports = class Monster {
     constructor(data) {
         Object.keys(data).forEach(key => this[key] = data[key]);
     }
+    /**
+     * Deals damage to the monster.
+     *
+     * @param {object} message - Discord message.
+     * @param {number} damage - Amount of damage to deal the player.
+     */
     dealDamage(message, damage) {
         this.currentHp -= damage;
         this.message.edit(this.embed()).catch(error => {console.log(error);});
@@ -14,14 +20,26 @@ module.exports = class Monster {
             message.client.players[message.member.id].questUpdate(message, this.name);
         }
     }
+    /**
+     * Returns true if the monster's current hp < 0.
+     */
     dead() {
         return (this.currentHp > 0) ? false : true;
     }
+    /**
+     * Spawns a monster in the given channel.
+     *
+     * @param {object} client - Discord Client.
+     * @param {object} channel - Discord Channel.
+     */
     async spawn(client, channel) {
         this.currentHp = this.maxHp;
         await client.channels.get(channel).send(this.embed()).then((msg => this.message = msg)).catch(error => {console.log(error);});
         this.spawned = true;
     }
+    /**
+     * Returns an embed with the monster's stats.
+     */
     embed() {
         const hpBar = generateHeartsBar(this.currentHp);
         const monsterImage = (this.currentHp > 0) ? this.img : this.deathimage;

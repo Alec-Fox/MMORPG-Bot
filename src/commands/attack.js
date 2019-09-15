@@ -7,7 +7,7 @@ module.exports = {
     usage: '',
     cooldown: 1 / 2,
     async execute(message) {
-        message.delete().catch(error => {console.log(error);});
+        message.delete().catch(error => { console.log(error); });
         const instance = message.client.dungeon.instance;
         const players = message.client.players;
         const userID = message.member.id;
@@ -20,6 +20,11 @@ module.exports = {
     },
 };
 
+/**
+ * Continues the dungeon progress
+ *
+ * @param {object} message - Discord message.
+ */
 const maybeContinueDung = async (message) => {
     const userID = message.member.id;
     const instance = message.client.dungeon.instance;
@@ -29,7 +34,7 @@ const maybeContinueDung = async (message) => {
         instance[players[userID].dungeonChannel].currentFight = instance[players[userID].dungeonChannel][`currentMob${instance[players[userID].dungeonChannel].progress}`];
         message.channel.send(constructEmbed('**Another monster approaches!**', '', null, null));
         message.channel.send(instance[players[userID].dungeonChannel].currentFight.embed()).then(
-            (msg) => { instance[players[userID].dungeonChannel].currentFight.message = msg; }).catch(error => {console.log(error);});
+            (msg) => { instance[players[userID].dungeonChannel].currentFight.message = msg; }).catch(error => { console.log(error); });
         return;
     }
     const embed = constructEmbed('**-----------------------Victorious!-------------------------**', '**These brave heroers have scrubbed the dungeon clean!**', CLEAN_BATHROOM_IMAGE, null);
@@ -40,5 +45,5 @@ const maybeContinueDung = async (message) => {
         embed.addField(`${user.username}`, '\u200B', true);
     }
     message.client.channels.get(BOT_CHANNEL_ID).send(embed);
-    message.client.channels.get(players[userID].dungeonChannel).delete().catch(error => {console.log(error);});
+    message.client.channels.get(players[userID].dungeonChannel).delete().catch(error => { console.log(error); });
 };

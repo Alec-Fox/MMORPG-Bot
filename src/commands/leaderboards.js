@@ -1,6 +1,6 @@
 // this code will break if there are over 25 members in the guild. need to refactor before release.
 const { constructEmbed } = require('../util/utilities.js');
-const { LEVEL_EMOJI } = require('../util/constants.js');
+const { LEVEL_EMOJI, BOT_CHANNEL_ID } = require('../util/constants.js');
 
 module.exports = {
     name: 'ranks',
@@ -10,6 +10,7 @@ module.exports = {
     cooldown: 5,
     async execute(message) {
         message.delete();
+        if(message.channel.id !== BOT_CHANNEL_ID) return;
         const keys = Object.keys(message.client.players);
         const leaderboardData = [];
         for (let i = 0; i < keys.length; i++) {

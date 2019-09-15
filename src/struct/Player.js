@@ -4,17 +4,32 @@ module.exports = class Player {
     constructor(data) {
         Object.keys(data).forEach(key => this[key] = data[key]);
     }
+
+    /**
+     * Deals damage to the player
+     *
+     * @param {object} message - Discord message.
+     * @param {number} damage - Amount of damage to deal the player.
+     */
     dealDamage(message, damage) {
         this.currenthp -= damage;
-        if(this.lasthpbar === null) this.lasthpbar = '';
-        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => {console.log(error);});
-        message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg)).catch(error => {console.log(error);});
+        if (this.lasthpbar === null) this.lasthpbar = '';
+        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => { console.log(error); });
+        message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg)).catch(error => { console.log(error); });
         if (this.currenthp <= 0) this.respawn(message);
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * Returns true if the player's hp is < 0.
+     */
     dead() {
         return (this.currenthp > 0) ? false : true;
     }
+    /**
+     * Sends Player's stats.
+     *
+     * @param {object} message - Discord message.
+     */
     stats(message) {
         const fields = [
             { name: `⚔${this.attack + this.baseattack}`, value: `**${this.weapon}**`, inline: true },
@@ -25,20 +40,34 @@ module.exports = class Player {
         const embed = constructEmbed(`🅻🆅🅻 ${LEVEL_EMOJI[`${this.level}`]}  ${this.name}'s Stats`, `**HP:[${this.currenthp}/${this.maxhp + this.basehp}]**${this.hpBar()}`, null, fields);
         return message.channel.send(embed);
     }
+    /**
+     * Generates an "xp bar" of icons based on the player's current and max xp.
+     */
     xpBar() {
         let xpBar = '';
         for (let i = 0; i < this.currentxp; i++) xpBar += XP_ICON_WHITE;
         for (let i = 0; i < (this.maxxp - this.currentxp); i++) xpBar += XP_ICON_BLACK;
         return xpBar;
     }
+        /**
+     * Heals the player.
+     *
+     * @param {object} message - Discord message.
+     * @param {number} amount - Amount to heal the player by.
+     */
     heal(message, amount) {
         this.currenthp += amount;
-        if(this.lasthpbar === null) this.lasthpbar = '';
-        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => {console.log(error);});
-        if(this.currenthp > this.maxhp + this.basehp) this.currenthp = this.maxhp + this.basehp;
-        message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null)).then((msg => this.lasthpbar = msg)).catch(error => {console.log(error);});
+        if (this.lasthpbar === null) this.lasthpbar = '';
+        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => { console.log(error); });
+        if (this.currenthp > this.maxhp + this.basehp) this.currenthp = this.maxhp + this.basehp;
+        message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null)).then((msg => this.lasthpbar = msg)).catch(error => { console.log(error); });
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * Respawns the player with 50% xp and 33% hp
+     *
+     * @param {object} message - Discord message.
+     */
     respawn(message) {
         this.currenthp = Math.floor((this.maxhp + this.basehp) / 3);
         this.currentxp = Math.floor(this.currentxp / 2);
@@ -50,12 +79,24 @@ module.exports = class Player {
         message.channel.send(embed);
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * Adds xp and gold to the player.
+     *
+     * @param {object} message - Discord message.
+     * @param {number} xp - Amount of xp to give the player.
+     * @param {number} gold - Amount of gold to give the player.
+     */
     recieve(message, xp, gold) {
         this.currentxp += xp;
         this.currency += gold;
         if (this.currentxp >= this.maxxp) this.levelUp(message);
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * Inreases the players level
+     *
+     * @param {object} message - Discord message.
+     */
     levelUp(message) {
         this.level++;
         this.attack++;
@@ -67,9 +108,22 @@ module.exports = class Player {
         message.channel.send(embed);
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * returns true if the player has enough currency.
+     *
+     * @param {number} cost - The cost of the item(s).
+     * @param {number} qty - The quantity of the item(s).
+     */
     canAfford(cost, qty) {
         return (this.currency < cost * qty) ? false : true;
     }
+    /**
+     * Equips items to the player.
+     *
+     * @param {object} message - Discord message.
+     * @param {object} item - The item to equip.
+     * @param {number} qty - Amount of items to equip.
+     */
     equip(message, item, qty) {
         this.currency -= parseInt(item.cost * qty);
         switch (item.type) {
@@ -87,10 +141,20 @@ module.exports = class Player {
         }
         exportJson(message.client.players, 'playerdata');
     }
+    /**
+     * Runs away from the monster
+     *
+     * @param {object} message - Discord message.
+     */
     flee(message) {
         const embed = constructEmbed(`🏃 ${this.name}, you run away from the monster!`, '', null, null);
         return message.channel.send(embed);
     }
+    /**
+     * Display an ordered list of medals the player has.
+     *
+     * @param {object} message - Discord message.
+     */
     medals(message) {
         const achievements = this.achievements.split('').sort();
         let achievementIcons = '';
@@ -98,6 +162,12 @@ module.exports = class Player {
         const embed = constructEmbed(`${this.name}'s Achievements`, `${achievementIcons}`, null, null);
         return message.channel.send(embed);
     }
+    /**
+     * Updates the player's quest progress.
+     *
+     * @param {object} message - Discord message.
+     * @param {string} currentMonster - Monster the player has killed.
+     */
     questUpdate(message, currentMonster) {
         if (this.quest.type === currentMonster) {
             this.quest.progress++;
@@ -109,6 +179,11 @@ module.exports = class Player {
             }
         }
     }
+    /**
+     * Generates or displays a quest for the player.
+     *
+     * @param {object} message - Discord message.
+     */
     getQuest(message) {
         if (!this.quest.active) {
             const questData = chooseMonster('mobdata');
@@ -120,6 +195,9 @@ module.exports = class Player {
         embed.addField(`Reward: 💰${this.quest.reward}`, '\u200B');
         return message.channel.send(embed);
     }
+    /**
+     * Returns an hp bar.
+     */
     hpBar() {
         return generateHeartsBar(this.currenthp);
     }

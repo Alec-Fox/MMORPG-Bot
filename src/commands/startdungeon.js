@@ -10,7 +10,7 @@ module.exports = {
     cooldown: 5,
     execute(message) {
         message.delete();
-        if(message.channel.id !== BOT_CHANNEL_ID) return;
+        if (message.channel.id !== BOT_CHANNEL_ID) return;
         const userID = message.member.id;
         let inQueue = false;
         for (let i = 0; i < message.client.dungeon.queue.length; i++) if (message.client.dungeon.queue[i].id === userID) inQueue = true;
@@ -32,16 +32,22 @@ module.exports = {
                     channel.send(constructEmbed('Let the Fight Begin!', '', null, null));
                     message.channel.send(constructEmbed(`Enter Dungeon ${dungNumber} with your party ${message.member.displayName}!`, '', DIRTY_BATHROOM_IMAGE, null));
                     channel.send(message.client.dungeon.instance[channel.id].currentFight.embed()).then(
-                        (msg) => { message.client.dungeon.instance[channel.id].currentFight.message = msg;});
+                        (msg) => { message.client.dungeon.instance[channel.id].currentFight.message = msg; });
                     return;
                 });
-                return;
+            return;
         }
         message.channel.send(constructEmbed(`${message.member.displayName} you are not in a queue or already in a dungeon! join a queue to start a dungeon!`, '', null, null));
 
     },
 };
 
+/**
+ * Adds new dungeon instance to client.dungeon.instance
+ *
+ * @param {object} channel - Discord Channel.
+ * @param {number} dungNumber - The dungeon number.
+ */
 const addDungeonToData = (channel, dungNumber) => {
     const channelID = channel.id;
     const newDungeonData = { [channelID]: {} };
@@ -49,9 +55,9 @@ const addDungeonToData = (channel, dungNumber) => {
     newDungeonData[channelID].progress = 1;
     newDungeonData[channelID].players = channel.client.dungeon.queue;
     newDungeonData[channelID].dungeonNumber = dungNumber;
-    const mob1 = new Monster (chooseMonster('mobdata'));
-    const mob2 = new Monster (chooseMonster('mobdata'));
-    const mob3 = new Monster (chooseMonster('bossdata'));
+    const mob1 = new Monster(chooseMonster('mobdata'));
+    const mob2 = new Monster(chooseMonster('mobdata'));
+    const mob3 = new Monster(chooseMonster('bossdata'));
     newDungeonData[channelID].currentMob1 = mob1;
     newDungeonData[channelID].currentMob2 = mob2;
     newDungeonData[channelID].currentMob3 = mob3;
