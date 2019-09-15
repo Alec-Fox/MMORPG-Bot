@@ -1,5 +1,5 @@
 const { LEVEL_EMOJI, XP_ICON_BLACK, XP_ICON_WHITE, DEATH_IMAGE, LEVEL_XP_TOTALS, ACHIEVEMENTS, LEVEL_UP_IMAGE } = require('../util/constants.js');
-const { generateHeartsBar, constructEmbed, chooseMonster, getRand } = require('../util/utilities.js');
+const { generateHeartsBar, constructEmbed, chooseMonster, getRand, exportJson } = require('../util/utilities.js');
 module.exports = class Player {
     constructor(data) {
         Object.keys(data).forEach(key => this[key] = data[key]);
@@ -10,6 +10,7 @@ module.exports = class Player {
         if (this.lasthpbar !== '') this.lasthpbar.delete();
         message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg));
         if (this.currenthp <= 0) this.respawn(message);
+        exportJson(message.client.players, 'playerdata');
     }
     dead() {
         return (this.currenthp > 0) ? false : true;
@@ -34,6 +35,7 @@ module.exports = class Player {
         this.currenthp += amount;
         if(this.currenthp > this.maxhp + this.basehp) this.currenthp = this.maxhp + this.basehp;
         message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null));
+        exportJson(message.client.players, 'playerdata');
     }
     respawn(message) {
         this.currenthp = Math.floor((this.maxhp + this.basehp) / 3);
@@ -44,11 +46,13 @@ module.exports = class Player {
         this.currency -= message.client.monster.reward;
         this.currentxp -= message.client.monster.lvl;
         message.channel.send(embed);
+        exportJson(message.client.players, 'playerdata');
     }
     recieve(message, xp, gold) {
         this.currentxp += xp;
         this.currency += gold;
         if (this.currentxp === this.maxxp) this.levelUp(message);
+        exportJson(message.client.players, 'playerdata');
     }
     levelUp(message) {
         this.level++;
@@ -59,6 +63,7 @@ module.exports = class Player {
         this.currenthp = this.maxhp + this.basehp;
         const embed = constructEmbed(`${this.name} **YOU ARE NOW ** 🅻🆅🅻 ${LEVEL_EMOJI[this.level]}!`, '', LEVEL_UP_IMAGE, null);
         message.channel.send(embed);
+        exportJson(message.client.players, 'playerdata');
     }
     canAfford(cost) {
         return (this.currency < cost) ? false : true;
@@ -78,6 +83,7 @@ module.exports = class Player {
             case 'consumable':
                 this.inventory['health-potions']++;
         }
+        exportJson(message.client.players, 'playerdata');
     }
     flee(message) {
         const embed = constructEmbed(`🏃 ${this.name}, you run away from the monster!`, '', null, null);
@@ -93,6 +99,7 @@ module.exports = class Player {
     questUpdate(message, currentMonster) {
         if (this.quest.type === currentMonster) {
             this.quest.progress++;
+            exportJson(message.client.players, 'playerdata');
             if (this.quest.progress >= this.quest.total) {
                 this.currency += this.quest.reward;
                 message.channel.send(constructEmbed(`${this.username}, you completed your quest and received: 💰${this.quest.reward}`, '', null, null));

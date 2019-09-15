@@ -1,4 +1,5 @@
 const fs = require('fs');
+// eslint-disable-next-line no-var
 const { RichEmbed } = require('discord.js');
 const { NEW_PLAYER_DATA, ARENA_CHANNEL_ID } = require('./constants.js');
 const playerdata = require('../data/playerdata.json');
@@ -23,9 +24,12 @@ exports.getRand = (min, max) => {
     max = Math.floor(max);
     return Math.floor((Math.random() * max) + min);
 };
-
+function replacer(key, value) {
+    if (key == 'lasthpbar') return undefined;
+    else return value;
+}
 exports.exportJson = (content, fileName) => {
-    fs.writeFileSync(`./src/data/${fileName}.json`, JSON.stringify(content));
+    fs.writeFileSync(`./src/data/${fileName}.json`, JSON.stringify(content, replacer));
 };
 
 exports.maybeCreatePlayerData = (userID) => {
@@ -54,7 +58,7 @@ exports.chooseMonster = filePath => {
 };
 
 exports.maybeSpawnMob = client => {
-    if(!client.monster.dead()) return;
+    if (!client.monster.dead()) return;
     const Monster = require('../struct/Monster.js');
     const mob = new Monster(this.chooseMonster('mobdata'));
     client.monster = mob;

@@ -27,6 +27,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "126527690319593473": {
@@ -57,6 +58,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "132944096347160576": {
@@ -86,6 +88,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "name": "Kent"
     },
     "137011701940748289": {
@@ -116,35 +119,37 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "162434234357645312": {
         "level": 5,
-        "currentxp": 11,
+        "currentxp": 0,
         "maxxp": 20,
-        "currency": 342,
+        "currency": 314,
         "basehp": 25,
         "baseattack": 5,
         "maxhp": 1,
-        "currenthp": 2,
+        "currenthp": 8,
         "defense": 10,
         "attack": 1,
         "armor": "hazmat-suit",
         "weapon": "scrubbing-bubbles",
         "inventory": {
-            "health-potions": 28
+            "health-potions": 34
         },
         "quest": {
             "active": true,
             "type": "Piss Covered Toilet",
             "total": 7,
-            "progress": 1,
+            "progress": 0,
             "reward": 3,
             "img": "https://i.imgur.com/pb0Splr.png"
         },
-        "dungeonActive": true,
-        "dungeonChannel": "622653439792513024",
+        "dungeonActive": false,
+        "dungeonChannel": "",
         "achievements": "12322213333",
+        "lasthpbar": "",
         "name": "Αlec"
     },
     "196093066149363713": {
@@ -175,6 +180,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "208790727197589504": {
@@ -205,6 +211,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "287071803183071232": {
@@ -235,6 +242,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "372392086789423104": {
@@ -264,6 +272,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "name": "MMORPG"
     },
     "473172825658753024": {
@@ -294,6 +303,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "class": "none"
     },
     "560299751539736576": {
@@ -323,6 +333,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "name": "drogo"
     },
     "621465649360666644": {
@@ -352,6 +363,7 @@
         "dungeonActive": false,
         "dungeonChannel": "",
         "achievements": "",
+        "lasthpbar": "",
         "name": "MMORPG"
     }
 }
