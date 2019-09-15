@@ -8,7 +8,7 @@ Discord bot with the following commands:<br />
 `Please Note - You must be within the Bot Category in order to use commands.`
 1. Shop
       + .shop - `Displays the item shop`
-      + .buy <`item`> - `Purchases the item from the shop.`
+      + .buy <`item`> <`qty`> - `Purchases the item from the shop.`
 
 1. Combat
       + .attack - `Attacks a monster. It deals your total attack to it and you take its total attack as damage.`
