@@ -5,7 +5,7 @@ module.exports = {
     name: 'buy',
     description: 'Purchases an item the shop.',
     aliases: ['purchase'],
-    usage: '[item name]',
+    usage: '[item name] or [buy] [item name] [qty]',
     cooldown: 1,
     args: true,
     execute(message, args) {
@@ -13,16 +13,19 @@ module.exports = {
         const userID = message.member.id;
         const keys = Object.keys(items);
         const itemSelection = args[0];
+        let qty = Number(args[1]);
+        if(!qty) qty = 1;
+        if (!Number.isInteger(qty) || qty < 0) return message.reply('that\'s not a valid command, use .buy [item name] [qty]!');
         const itemList = [];
         for (let i = 0; i < keys.length; i++) {
             itemList.push(items[i].name);
-            if (itemSelection === items[i].name && message.client.players[userID].canAfford(items[i].cost)) {
-                message.client.players[userID].equip(message, items[i]);
+            if (itemSelection === items[i].name && message.client.players[userID].canAfford(items[i].cost, qty)) {
+                message.client.players[userID].equip(message, items[i], qty);
                 return message.channel.send({
                     embed: {
                         color: 3021383,
                         thumbnail: { url: `${items[i].img}` },
-                        title: `${message.member.displayName}, you purchased: ${items[i].name}!`,
+                        title: `${message.member.displayName}, you purchased: ${items[i].name}! (qty: ${qty})`,
                     },
                 });
             }

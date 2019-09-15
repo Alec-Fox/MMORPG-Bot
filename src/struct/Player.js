@@ -7,8 +7,8 @@ module.exports = class Player {
     dealDamage(message, damage) {
         this.currenthp -= damage;
         if(this.lasthpbar === null) this.lasthpbar = '';
-        if (this.lasthpbar !== '') this.lasthpbar.delete();
-        message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg));
+        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => {console.log(error);});
+        message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg)).catch(error => {console.log(error);});
         if (this.currenthp <= 0) this.respawn(message);
         exportJson(message.client.players, 'playerdata');
     }
@@ -65,11 +65,11 @@ module.exports = class Player {
         message.channel.send(embed);
         exportJson(message.client.players, 'playerdata');
     }
-    canAfford(cost) {
-        return (this.currency < cost) ? false : true;
+    canAfford(cost, qty) {
+        return (this.currency < cost * qty) ? false : true;
     }
-    equip(message, item) {
-        this.currency -= parseInt(item.cost);
+    equip(message, item, qty) {
+        this.currency -= parseInt(item.cost * qty);
         switch (item.type) {
             case 'armor':
                 this.defense = 0 + item.armor;
@@ -81,7 +81,7 @@ module.exports = class Player {
                 this.weapon = item.name;
                 break;
             case 'consumable':
-                this.inventory['health-potions']++;
+                this.inventory['health-potions'] += qty;
         }
         exportJson(message.client.players, 'playerdata');
     }

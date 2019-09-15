@@ -25,7 +25,7 @@ exports.getRand = (min, max) => {
     return Math.floor((Math.random() * max) + min);
 };
 function replacer(key, value) {
-    if (key == 'lasthpbar') return undefined;
+    if (key == 'lasthpbar') return key = '';
     else return value;
 }
 exports.exportJson = (content, fileName) => {

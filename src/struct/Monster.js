@@ -7,12 +7,11 @@ module.exports = class Monster {
     }
     dealDamage(message, damage) {
         this.currentHp -= damage;
-        this.message.edit(this.embed());
+        this.message.edit(this.embed()).catch(error => {console.log(error);});
         if(this.dead()) {
             this.spawned = false;
             message.client.players[message.member.id].recieve(message, this.lvl, this.reward);
             message.client.players[message.member.id].questUpdate(message, this.name);
-
         }
     }
     dead() {
@@ -20,7 +19,7 @@ module.exports = class Monster {
     }
     async spawn(client, channel) {
         this.currentHp = this.maxHp;
-        await client.channels.get(channel).send(this.embed()).then((msg => this.message = msg));
+        await client.channels.get(channel).send(this.embed()).then((msg => this.message = msg)).catch(error => {console.log(error);});
         this.spawned = true;
     }
     embed() {

@@ -22,6 +22,8 @@ function generateAllPlayers(member, memberId, allPlayersMap) {
     maybeCreatePlayerData(memberId);
     Object.assign(client.players, { [memberId] : new Player(playerdata[memberId]) });
     client.players[memberId].name = member.displayName;
+    client.players[memberId].dungeonChannel = '';
+    client.players[memberId].dungeonActive = false;
 }
 const guild = client.guilds.first();
 const allPlayersMap = guild.members;
