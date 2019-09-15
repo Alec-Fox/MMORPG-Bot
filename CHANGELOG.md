@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 - refactored whole project to work around the new Player and Monster class
 
 ### Removed
-- removed uneccessary read/writes for player data
+- removed unnecessary read/writes for player data
 - removed the need to have dungeon data read/writes and monster read/writes
 ---
 
@@ -44,4 +44,4 @@ All notable changes to this project will be documented in this file.
 - Updated README to have all bot functionality.
 
 ### Removed
-- mutliple lines of redundant code.
+- multiple lines of redundant code.
