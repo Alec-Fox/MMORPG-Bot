@@ -1,5 +1,6 @@
 const { constructEmbed } = require('../util/utilities.js');
 const { items } = require('../data/shopdata.json');
+const { BOT_CHANNEL_ID } = require('../util/constants.js');
 
 module.exports = {
     name: 'buy',
@@ -10,6 +11,7 @@ module.exports = {
     args: true,
     execute(message, args) {
         message.delete();
+        if(message.channel.id !== BOT_CHANNEL_ID) return;
         const userID = message.member.id;
         const keys = Object.keys(items);
         const itemSelection = args[0];
@@ -25,12 +27,12 @@ module.exports = {
                     embed: {
                         color: 3021383,
                         thumbnail: { url: `${items[i].img}` },
-                        title: `${message.member.displayName}, you purchased: ${items[i].name}! (qty: ${qty})`,
+                        title: `${message.member.displayName}, you purchased: ${items[i].name}! (Qty: ${qty})`,
                     },
                 });
             }
-            if (itemSelection === items[i].name && !message.client.players[userID].canAfford(items[i].cost)) {
-                const embed = constructEmbed(`${message.member.displayName}, you are too broke to afford: ${items[i].name}`, '', null, null);
+            if (itemSelection === items[i].name && !message.client.players[userID].canAfford(items[i].cost, qty)) {
+                const embed = constructEmbed(`${message.member.displayName}, you are too broke to afford: ${items[i].name} (Qty: ${qty})`, '', null, null);
                 return message.channel.send(embed);
             }
         }

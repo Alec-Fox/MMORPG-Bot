@@ -1,6 +1,6 @@
 const { constructEmbed } = require('../util/utilities.js');
 const { items } = require('../data/shopdata.json');
-
+const { BOT_CHANNEL_ID } = require('../util/constants.js');
 module.exports = {
     name: 'shop',
     description: 'Displays the item shop.',
@@ -9,7 +9,7 @@ module.exports = {
     cooldown: 5,
     execute(message) {
         message.delete();
-
+        if(message.channel.id !== BOT_CHANNEL_ID) return;
         const title = '--------------------------------**ITEM SHOP**--------------------------------';
         const description = 'Type **".buy <itemname>"** to purchase items';
         const keys = Object.keys(items);

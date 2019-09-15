@@ -1,5 +1,5 @@
 const { constructEmbed, getRand, chooseMonster } = require('../util/utilities.js');
-const { GUILD_ID, BOT_CATEGORY_ID, DUNGEON_DATA, DIRTY_BATHROOM_IMAGE } = require('../util/constants.js');
+const { GUILD_ID, BOT_CATEGORY_ID, DUNGEON_DATA, DIRTY_BATHROOM_IMAGE, BOT_CHANNEL_ID } = require('../util/constants.js');
 const Monster = require('../struct/Monster.js');
 
 module.exports = {
@@ -10,6 +10,7 @@ module.exports = {
     cooldown: 5,
     execute(message) {
         message.delete();
+        if(message.channel.id !== BOT_CHANNEL_ID) return;
         const userID = message.member.id;
         let inQueue = false;
         for (let i = 0; i < message.client.dungeon.queue.length; i++) if (message.client.dungeon.queue[i].id === userID) inQueue = true;

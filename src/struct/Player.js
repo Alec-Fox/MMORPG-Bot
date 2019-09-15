@@ -33,8 +33,10 @@ module.exports = class Player {
     }
     heal(message, amount) {
         this.currenthp += amount;
+        if(this.lasthpbar === null) this.lasthpbar = '';
+        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => {console.log(error);});
         if(this.currenthp > this.maxhp + this.basehp) this.currenthp = this.maxhp + this.basehp;
-        message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null));
+        message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null)).then((msg => this.lasthpbar = msg)).catch(error => {console.log(error);});
         exportJson(message.client.players, 'playerdata');
     }
     respawn(message) {
@@ -51,13 +53,13 @@ module.exports = class Player {
     recieve(message, xp, gold) {
         this.currentxp += xp;
         this.currency += gold;
-        if (this.currentxp === this.maxxp) this.levelUp(message);
+        if (this.currentxp >= this.maxxp) this.levelUp(message);
         exportJson(message.client.players, 'playerdata');
     }
     levelUp(message) {
         this.level++;
         this.attack++;
-        this.currentxp = 0;
+        this.currentxp = this.currentxp - this.maxxp;
         this.maxxp = LEVEL_XP_TOTALS[this.level];
         this.maxhp++;
         this.currenthp = this.maxhp + this.basehp;
@@ -102,7 +104,7 @@ module.exports = class Player {
             exportJson(message.client.players, 'playerdata');
             if (this.quest.progress >= this.quest.total) {
                 this.currency += this.quest.reward;
-                message.channel.send(constructEmbed(`${this.username}, you completed your quest and received: 💰${this.quest.reward}`, '', null, null));
+                message.channel.send(constructEmbed(`${this.name}, you completed your quest and received: 💰${this.quest.reward}`, '', null, null));
                 this.quest = { 'active': false, 'type': '', 'total': null, 'progress': null };
             }
         }
