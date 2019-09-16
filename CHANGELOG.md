@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 - Class specific stats
 - Player vs player combat
 
+## [0.3.1] - 2010-09-16
+### Added
+- boss images
+
+### Removed
+- level cap
+---
+
 ## [0.3.0] - 2010-09-16
 ### Added
 - !classes, !chooseclass [classname], !ability
