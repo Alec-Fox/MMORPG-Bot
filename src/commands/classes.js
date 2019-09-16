@@ -13,7 +13,7 @@ module.exports = {
         for(let i = 0; i < CLASSES.length; i++) {
             embed.addField(`**${CLASSES[i].name}**`, '\u200B', true);
             embed.addField(`**Active: ${CLASSES[i].active}**`, `${CLASSES[i].valueactive}%`, true);
-            embed.addField(`**Passive: ${CLASSES[i].passive}**`, `${CLASSES[i].valuepassive}%`, true);
+            embed.addField(`**${CLASSES[i].passive}**`, `.ability (${CLASSES[i].valuepassive} turn cooldown.)`, true);
 
         }
         message.channel.send(embed);

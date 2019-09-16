@@ -108,6 +108,7 @@ module.exports = class Player {
      * @param {number} gold - Amount of gold to give the player.
      */
     recieve(message, xp, gold) {
+        if(this.level > 4) xp = Math.ceil(xp / 2);
         this.currentxp += xp;
         this.currency += gold;
         if (this.currentxp >= this.maxxp) this.levelUp(message);
