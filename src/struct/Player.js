@@ -45,13 +45,17 @@ module.exports = class Player {
      * @param {object} message - Discord message.
      */
     stats(message) {
+        let levelEmoji = LEVEL_EMOJI[this.level];
+        if(this.level > 10) {
+            levelEmoji = LEVEL_EMOJI[1] + LEVEL_EMOJI[this.level - 10];
+        }
         const fields = [
             { name: `⚔${this.attack + this.baseattack}`, value: `**${this.weapon}**`, inline: true },
             { name: `🛡${this.defense}`, value: `**${this.armor}**`, inline: true },
             { name: `💰${this.currency}`, value: '\u200B', inline: true },
             { name: '```🅸🅽🆅🅴🅽🆃🅾🆁🆈: \nHEALTH-POTIONS: ```' + `${this.inventory['health-potions']}`, value: `**XP:[${this.currentxp}/${this.maxxp}]**\n${this.xpBar()}`, inline: true },
         ];
-        const embed = constructEmbed(`🅻🆅🅻 ${LEVEL_EMOJI[`${this.level}`]}  ${this.name}'s Stats`, `**HP:[${this.currenthp}/${this.maxhp + this.basehp}]**${this.hpBar()}`, this.class.img, fields);
+        const embed = constructEmbed(`🅻🆅🅻 ${levelEmoji}  ${this.name}'s Stats`, `**HP:[${this.currenthp}/${this.maxhp + this.basehp}]**${this.hpBar()}`, this.class.img, fields);
         return message.channel.send(embed);
     }
     /**
@@ -120,14 +124,18 @@ module.exports = class Player {
      * @param {object} message - Discord message.
      */
     levelUp(message) {
-        if (this.level === 10) return;
         this.level++;
         this.attack++;
         this.currentxp = this.currentxp - this.maxxp;
         this.maxxp = LEVEL_XP_TOTALS[this.level];
         this.maxhp++;
         this.currenthp = this.maxhp + this.basehp;
-        const embed = constructEmbed(`${this.name} **YOU ARE NOW ** 🅻🆅🅻 ${LEVEL_EMOJI[this.level]}!`, '', LEVEL_UP_IMAGE, null);
+        let levelEmoji = LEVEL_EMOJI[this.level];
+        if(this.level > 10) {
+            levelEmoji = LEVEL_EMOJI[1] + LEVEL_EMOJI[this.level - 10];
+            this.maxxp = LEVEL_XP_TOTALS[10];
+        }
+        const embed = constructEmbed(`${this.name} **YOU ARE NOW ** 🅻🆅🅻 ${levelEmoji}!`, '', LEVEL_UP_IMAGE, null);
         message.channel.send(embed);
         exportJson(message.client.players, 'playerdata');
     }
