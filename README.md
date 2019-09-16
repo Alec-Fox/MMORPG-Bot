@@ -15,9 +15,9 @@ Discord bot with the following commands:<br />
       + .pot - `heals you for 10 ❤.`
       + .flee - `Runs away from the monster. (Usable only in the 'Arena Text Channel')`
 1. Classes
-      + .classes to view class information
-      + .choosechlass [class name] to become that class
-      + .ability to use your classes ability (has a cooldown)
+      + .classes `View class information.`
+      + .choosechlass [class name] `Become that class.`
+      + .ability `Use your classes ability (has a cooldown).`
 
 1. Dungeons
       + .join queue - `places you in the queue for a dungeon.`
