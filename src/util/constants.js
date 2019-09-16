@@ -10,6 +10,7 @@ module.exports = {
     LEVEL_UP_IMAGE: 'https://i.imgur.com/BncqEFS.png',
     CLEAN_BATHROOM_IMAGE: 'https://i.imgur.com/Rd3HtaE.png',
     DIRTY_BATHROOM_IMAGE: 'https://i.imgur.com/P93YXN6.png',
+    PRIEST_IMAGE: 'https://i.imgur.com/PXEuEQb.png',
     XP_ICON_BLACK: '⬛',
     XP_ICON_WHITE: '⬜',
     ACHIEVEMENTS: {
@@ -62,7 +63,7 @@ module.exports = {
         'dungeonChannel': '',
         'achievements': '',
         'lasthpbar': '',
-        'class' : 'none',
+        'class' : false,
     },
     DUNGEON_DATA: {
         'dungeonNumber': '',
@@ -77,9 +78,9 @@ module.exports = {
         'total_reward': 0,
     },
     CLASSES: [
-        { 'name': 'Assasain', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Critical Chance', 'valuepassive': 50 },
+        { 'name': 'Assassin', 'active': 'Deadly Strike', 'valueactive': 300, 'passive': 'Critical Chance', 'valuepassive': 50 },
         { 'name': 'Healer', 'active': 'Heal', 'valueactive': 50, 'passive': 'HP Regen', 'valuepassive': 10 },
-        { 'name': 'Tank', 'active': 'Block', 'valueactive' : 100, 'passive': 'Armor', 'valuepassive': 50 },
-        { 'name': 'Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },
-        { 'name': 'Sharp Shooter', 'active': 'Snipe', 'valueactive': 200, 'passive': 'Damage Bonus', 'valuepassive': 30 }],
+        { 'name': 'Tank', 'active': 'Shield Bash', 'valueactive' : 100, 'passive': 'Armor', 'valuepassive': 50 },
+        { 'name': '(Not Released) Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },
+        { 'name': '(Not Released) Sharp Shooter', 'active': 'Snipe', 'valueactive': 200, 'passive': 'Damage Bonus', 'valuepassive': 30 }],
 };

@@ -13,9 +13,8 @@ module.exports = {
         const userID = message.member.id;
         const location = (message.channel.id === ARENA_CHANNEL_ID) ? message.client.monster : instance[players[userID].dungeonChannel].currentFight;
         if (location.dead()) return message.channel.send(constructEmbed('There is nothing to attack!', '', null, null));
-        const damage = players[userID].attack + players[userID].baseattack;
         players[userID].dealDamage(message, location.attack);
-        location.dealDamage(message, damage);
+        location.dealDamage(message, (players[userID].attack + players[userID].baseattack));
         if (location !== message.client.monster && instance[players[userID].dungeonChannel].currentFight.dead()) maybeContinueDung(message);
     },
 };
@@ -45,5 +44,11 @@ const maybeContinueDung = async (message) => {
         embed.addField(`${user.username}`, '\u200B', true);
     }
     message.client.channels.get(BOT_CHANNEL_ID).send(embed);
-    message.client.channels.get(players[userID].dungeonChannel).delete().catch(error => { console.log(error); });
+    try {
+        message.client.channels.get(players[userID].dungeonChannel).delete();
+    }
+    catch (error) {
+        console.log(error);
+    }
+
 };
