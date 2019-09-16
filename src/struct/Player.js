@@ -119,6 +119,7 @@ module.exports = class Player {
      * @param {object} message - Discord message.
      */
     levelUp(message) {
+        if (this.level === 10) return;
         this.level++;
         this.attack++;
         this.currentxp = this.currentxp - this.maxxp;
