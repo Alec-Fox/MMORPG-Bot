@@ -14,6 +14,10 @@ Discord bot with the following commands:<br />
       + .attack - `Attacks a monster. It deals your total attack to it and you take its total attack as damage.`
       + .pot - `heals you for 10 ❤.`
       + .flee - `Runs away from the monster. (Usable only in the 'Arena Text Channel')`
+1. Classes
+      + .classes to view class information
+      + .choosechlass [class name] to become that class
+      + .ability to use your classes ability (has a cooldown)
 
 1. Dungeons
       + .join queue - `places you in the queue for a dungeon.`
