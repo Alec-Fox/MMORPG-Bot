@@ -2,10 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- Player classes
-- Player abilities
 - Class specific stats
 - Player vs player combat
+
+## [0.3.0] - 2010-09-16
+### Added
+- !classes, !chooseclass [classname], !ability
+- classes with individual abilities
+---
 
 ## [0.2.1] - 2010-09-16
 ### Added
