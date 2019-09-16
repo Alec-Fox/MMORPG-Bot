@@ -1,4 +1,4 @@
-# MMORPG BOT [0.2.1] [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c2190eebe2d4d94890547f0f7b7b3ce)](https://www.codacy.com/manual/alecfox8/MMORPG-Bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alec-Fox/MMORPG-Bot&amp;utm_campaign=Badge_Grade)
+# MMORPG BOT [0.3.0] [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c2190eebe2d4d94890547f0f7b7b3ce)](https://www.codacy.com/manual/alecfox8/MMORPG-Bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alec-Fox/MMORPG-Bot&amp;utm_campaign=Badge_Grade)
 
 ------------
 [Update Log](https://github.com/Alec-Fox/MMORPG-Bot/blob/master/CHANGELOG.md)
