@@ -110,7 +110,7 @@ exports.chooseMonster = filePath => {
 exports.maybeSpawnMob = client => {
     if (!client.monster.dead()) return;
     const spawnChance = this.getRand(1, 10);
-    if(spawnChance > 6) return;
+    if (spawnChance > 6) return;
     const Monster = require('../struct/Monster.js');
     const mob = new Monster(this.chooseMonster('mobdata'));
     client.monster = mob;

@@ -10,7 +10,7 @@ module.exports = {
         message.delete();
         const specifiedMember = message.mentions.members.first();
         const userID = decideUser(message, specifiedMember);
-        if (message.client.players[userID].inventory['health-potions'] < 1) {
+        if (message.client.players[message.member.id].inventory['health-potions'] < 1) {
             const embed = constructEmbed(`${message.member.displayName} you do not have any health-potions!`, '', null, null);
             message.channel.send(embed);
             return;

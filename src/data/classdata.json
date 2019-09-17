@@ -1,0 +1,47 @@
+{
+    "healer": {
+        "name": "Priest Healer",
+        "img": "https://i.imgur.com/PXEuEQb.png",
+        "cooldown": 3,
+        "activeAbility1": {
+            "name": "Heal",
+            "description" : "Heals you or another player for 10.",
+            "cooldown": 3,
+            "amount": 10
+        },
+        "passiveAbility1": {
+            "name": "Health Regen",
+            "amount": 1
+        }
+    },
+    "tank": {
+        "name": "Orc Tank",
+        "img": "https://i.imgur.com/oo4hNZB.png",
+        "cooldown": 5,
+        "activeAbility1": {
+            "name": "Shield Bash",
+            "description": "Deals your current health as damage.",
+            "cooldown": 5,
+            "amount": 100
+        },
+        "passiveAbility1": {
+            "name": "Armor",
+            "amount": 25
+        }
+    },
+    "assassin": {
+        "name": "Ninja Assassin",
+        "img": "https://i.imgur.com/e1i7Qjn.png",
+        "cooldown": 5,
+        "activeAbility1": {
+            "name": "Deadly Strike",
+            "description": "Deals 3x your attack damage.",
+            "cooldown": 5,
+            "amount": 3
+        },
+        "passiveAbility1": {
+            "name": "Critical Strike Chance",
+            "amount": 3
+        }
+    }
+}

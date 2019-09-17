@@ -12,9 +12,17 @@ module.exports = class Player {
      * @param {number} damage - Amount of damage to deal the player.
      */
     dealDamage(message, damage) {
+        this.class.cooldown -= 1;
         this.currenthp -= damage;
         if (this.lasthpbar === null) this.lasthpbar = '';
-        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => { console.log(error); });
+        if (this.lasthpbar !== '') {
+                try {
+                    this.lasthpbar.delete();
+                }
+                catch (error) {
+                    console.log(error);
+                }
+        }
         message.channel.send(constructEmbed(`${this.name}: [${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, '', null, null)).then((msg => this.lasthpbar = msg)).catch(error => { console.log(error); });
         if (this.currenthp <= 0) this.respawn(message);
         exportJson(message.client.players, 'playerdata');
@@ -26,18 +34,28 @@ module.exports = class Player {
         return (this.currenthp > 0) ? false : true;
     }
     /**
+     * Deals this player's total attack.
+     */
+    attack() {
+        return (this.attack + this.baseattack);
+    }
+    /**
      * Sends Player's stats.
      *
      * @param {object} message - Discord message.
      */
     stats(message) {
+        let levelEmoji = LEVEL_EMOJI[this.level];
+        if(this.level > 10) {
+            levelEmoji = LEVEL_EMOJI[1] + LEVEL_EMOJI[this.level - 10];
+        }
         const fields = [
             { name: `⚔${this.attack + this.baseattack}`, value: `**${this.weapon}**`, inline: true },
             { name: `🛡${this.defense}`, value: `**${this.armor}**`, inline: true },
             { name: `💰${this.currency}`, value: '\u200B', inline: true },
             { name: '```🅸🅽🆅🅴🅽🆃🅾🆁🆈: \nHEALTH-POTIONS: ```' + `${this.inventory['health-potions']}`, value: `**XP:[${this.currentxp}/${this.maxxp}]**\n${this.xpBar()}`, inline: true },
         ];
-        const embed = constructEmbed(`🅻🆅🅻 ${LEVEL_EMOJI[`${this.level}`]}  ${this.name}'s Stats`, `**HP:[${this.currenthp}/${this.maxhp + this.basehp}]**${this.hpBar()}`, null, fields);
+        const embed = constructEmbed(`🅻🆅🅻 ${levelEmoji}  ${this.name}'s Stats`, `**HP:[${this.currenthp}/${this.maxhp + this.basehp}]**${this.hpBar()}`, this.class.img, fields);
         return message.channel.send(embed);
     }
     /**
@@ -49,16 +67,23 @@ module.exports = class Player {
         for (let i = 0; i < (this.maxxp - this.currentxp); i++) xpBar += XP_ICON_BLACK;
         return xpBar;
     }
-        /**
-     * Heals the player.
-     *
-     * @param {object} message - Discord message.
-     * @param {number} amount - Amount to heal the player by.
-     */
+    /**
+ * Heals the player.
+ *
+ * @param {object} message - Discord message.
+ * @param {number} amount - Amount to heal the player by.
+ */
     heal(message, amount) {
         this.currenthp += amount;
         if (this.lasthpbar === null) this.lasthpbar = '';
-        if (this.lasthpbar !== '') this.lasthpbar.delete().catch(error => { console.log(error); });
+        if (this.lasthpbar !== '') {
+            try {
+                this.lasthpbar.delete();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
         if (this.currenthp > this.maxhp + this.basehp) this.currenthp = this.maxhp + this.basehp;
         message.channel.send(constructEmbed(`${this.name} you have been healed by ${amount}❤️!`, `[${this.currenthp}/${(this.maxhp + this.basehp)}] ${this.hpBar()}`, null, null)).then((msg => this.lasthpbar = msg)).catch(error => { console.log(error); });
         exportJson(message.client.players, 'playerdata');
@@ -87,6 +112,7 @@ module.exports = class Player {
      * @param {number} gold - Amount of gold to give the player.
      */
     recieve(message, xp, gold) {
+        if(this.level > 4) xp = Math.ceil(xp / 2);
         this.currentxp += xp;
         this.currency += gold;
         if (this.currentxp >= this.maxxp) this.levelUp(message);
@@ -104,7 +130,12 @@ module.exports = class Player {
         this.maxxp = LEVEL_XP_TOTALS[this.level];
         this.maxhp++;
         this.currenthp = this.maxhp + this.basehp;
-        const embed = constructEmbed(`${this.name} **YOU ARE NOW ** 🅻🆅🅻 ${LEVEL_EMOJI[this.level]}!`, '', LEVEL_UP_IMAGE, null);
+        let levelEmoji = LEVEL_EMOJI[this.level];
+        if(this.level > 10) {
+            levelEmoji = LEVEL_EMOJI[1] + LEVEL_EMOJI[this.level - 10];
+            this.maxxp = LEVEL_XP_TOTALS[10];
+        }
+        const embed = constructEmbed(`${this.name} **YOU ARE NOW ** 🅻🆅🅻 ${levelEmoji}!`, '', LEVEL_UP_IMAGE, null);
         message.channel.send(embed);
         exportJson(message.client.players, 'playerdata');
     }

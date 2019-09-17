@@ -12,6 +12,7 @@ module.exports = {
     async execute(message) {
         message.delete();
         const userID = message.member.id;
+        if(message.client.players[userID].dungeonActive === false) return message.reply('You are not in a dungeon.');
         const dungeonInstance = message.client.players[userID].dungeonChannel;
         const newPlayers = message.client.dungeon.instance[dungeonInstance].players.filter(function(user) { return user.id !== `${message.member.id}`;});
         message.client.dungeon.instance[dungeonInstance].players = newPlayers;

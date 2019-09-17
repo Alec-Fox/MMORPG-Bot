@@ -17,7 +17,7 @@ module.exports = {
         const itemSelection = args[0];
         let qty = Number(args[1]);
         if(!qty) qty = 1;
-        if (!Number.isInteger(qty) || qty < 0) return message.reply('that\'s not a valid command, use .buy [item name] [qty]!');
+        if (!Number.isInteger(qty) || qty < 1) return message.reply('that\'s not a valid command, use .buy [item name] [qty]!');
         const itemList = [];
         for (let i = 0; i < keys.length; i++) {
             itemList.push(items[i].name);

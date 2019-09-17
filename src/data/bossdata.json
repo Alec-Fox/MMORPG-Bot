@@ -7,28 +7,28 @@
             "attack": 7,
             "maxHp": 40,
             "currentHp": 40,
-            "img": "https://i.imgur.com/pb0Splr.png",
+            "img": "https://i.imgur.com/CGieKVk.png",
             "reward": 20,
             "achievement": "1",
             "tier":  1,
-            "deathimage": "https://i.imgur.com/5e3tLwn.png",
+            "deathimage": "https://i.imgur.com/YrfuvtW.png",
             "message": "",
             "spawned": false
             
             
         },
         {
-            "name": "Shower Boss",
+            "name": "Sink Boss",
             "lvl": 7,
             "defense": 30,
             "attack": 9,
             "maxHp": 55,
             "currentHp": 55,
-            "img": "https://i.imgur.com/pb0Splr.png",
+            "img": "https://i.imgur.com/CGieKVk.png",
             "reward": 35,
             "achievement": "2",
             "tier": 2,
-            "deathimage": "https://i.imgur.com/5e3tLwn.png",
+            "deathimage": "https://i.imgur.com/YrfuvtW.png",
             "message": "",
             "spawned": false
         },
@@ -39,11 +39,11 @@
             "attack": 12,
             "maxHp": 70,
             "currentHp": 70,
-            "img": "https://i.imgur.com/pb0Splr.png",
+            "img": "https://i.imgur.com/L6j6cmg.png",
             "reward": 50,
             "achievement": "3",
             "tier": 3,
-            "deathimage": "https://i.imgur.com/5e3tLwn.png",
+            "deathimage": "https://i.imgur.com/1ofg9Rk.png",
             "message": "",
             "spawned": false
         }

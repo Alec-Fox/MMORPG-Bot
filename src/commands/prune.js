@@ -8,7 +8,7 @@ module.exports = {
     cooldown: 5,
     execute(message, args) {
         message.delete();
-        if (message.member.id !== DEV_ID) return message.channel.reply('You do not have the privilages to use this command!');
+        if (message.member.id !== DEV_ID) return message.reply('You do not have the privilages to use this command!');
         const amount = parseInt(args[0]) + 1;
 
         if (isNaN(amount)) {

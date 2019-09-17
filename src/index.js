@@ -8,6 +8,8 @@ const { maybeCreatePlayerData, maybeSpawnMob } = require('./util/utilities.js');
 const client = new AlecClient({ token: process.env.DISCORD_TOKEN, prefix: process.env.DISCORD_PREFIX });
 const playerdata = require('./data/playerdata.json');
 const Player = require('./struct/Player.js');
+const Healer = require('./struct/Healer.js');
+const classdata = require('./data/classdata.json');
 
 const commandFiles = readdirSync(join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -21,6 +23,7 @@ console.log(`${client.user.username} READY!`);
 function generateAllPlayers(member, memberId, allPlayersMap) {
     maybeCreatePlayerData(memberId);
     Object.assign(client.players, { [memberId] : new Player(playerdata[memberId]) });
+    Object.assign(client.players[memberId], { class: new Healer(classdata.healer) });
     client.players[memberId].name = member.displayName;
     client.players[memberId].dungeonChannel = '';
     client.players[memberId].dungeonActive = false;
@@ -39,6 +42,7 @@ client.on('message', message => {
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
     if (command.args && !args.length) {
+        message.delete();
         let reply = `You didn't provide any arguments, ${message.author}!`;
         if (command.usage) reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
         return message.channel.send(reply);
@@ -53,6 +57,7 @@ client.on('message', message => {
         const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
+            message.delete();
             return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${client.config.prefix}${command.name}\` command.`);
         }
     }

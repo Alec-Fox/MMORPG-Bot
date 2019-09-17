@@ -15,15 +15,21 @@ module.exports = {
         let inQueue = false;
         for (let i = 0; i < message.client.dungeon.queue.length; i++) if (message.client.dungeon.queue[i].id === userID) inQueue = true;
         if (inQueue && !message.client.players[userID].dungeonActive) {
-            const overwrites = [{
-                id: GUILD_ID,
-                denied: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
-            }];
+            // const overwrites = [{
+            //    id: GUILD_ID,
+            //    denied: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+            // },
+            // {
+            //    id: [BOT_USER_ID, DEV_ID],
+            //    allowed: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+            // }];
+            // permissionOverwrites: overwrites
             const dungNumber = getRand(1, 999);
-            message.guild.createChannel(`Dungeon ${dungNumber}`, { type: 'text', parent: message.guild.channels.get(BOT_CATEGORY_ID), permissionOverwrites: overwrites })
+            message.guild.createChannel(`Dungeon ${dungNumber}`, { type: 'text', parent: message.guild.channels.get(BOT_CATEGORY_ID) })
                 .then((channel) => {
                     addDungeonToData(channel, dungNumber);
                     for (let i = 0; i < message.client.dungeon.instance[channel.id].players.length; i++) {
+                        channel.overwritePermissions(GUILD_ID, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
                         const playerId = message.client.dungeon.instance[channel.id].players[i].id;
                         channel.overwritePermissions(playerId, { VIEW_CHANNEL: true, SEND_MESSAGES: true });
                         message.client.players[playerId].dungeonActive = true;

@@ -1,10 +1,10 @@
+/* eslint-disable no-inline-comments */
 module.exports = {
-    BOT_USER_ID: '372392086789423104',
-    BOT_CHANNEL_ID: '372365212076081164',
-    ARENA_CHANNEL_ID: '619846213650612255',
-    LOGGER_CHANNEL_ID: '473176714869080065',
-    BOT_CATEGORY_ID: '372246646831972352',
-    GUILD_ID: '371533518653751306',
+    BOT_USER_ID: '622819192479023106',
+    BOT_CHANNEL_ID: '622812592079110195', //
+    ARENA_CHANNEL_ID: '622812544867762196', //
+    BOT_CATEGORY_ID: '622812401657708572', //
+    GUILD_ID: '370623193075154945', //
     DEV_ID: '162434234357645312',
     DEATH_IMAGE: 'https://i.imgur.com/BVScqCl.png',
     LEVEL_UP_IMAGE: 'https://i.imgur.com/BncqEFS.png',
@@ -77,9 +77,9 @@ module.exports = {
         'total_reward': 0,
     },
     CLASSES: [
-        { 'name': 'Assasain', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Critical Chance', 'valuepassive': 50 },
-        { 'name': 'Healer', 'active': 'Heal', 'valueactive': 50, 'passive': 'HP Regen', 'valuepassive': 10 },
-        { 'name': 'Tank', 'active': 'Block', 'valueactive' : 100, 'passive': 'Armor', 'valuepassive': 50 },
-        { 'name': 'Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },
-        { 'name': 'Sharp Shooter', 'active': 'Snipe', 'valueactive': 200, 'passive': 'Damage Bonus', 'valuepassive': 30 }],
+        { 'name': 'Assassin', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Deals 3x your attack damage.', 'valuepassive': 5 },
+        { 'name': 'Healer', 'active': 'Heal', 'valueactive': 50, 'passive': 'Heals you/@someone for 10.', 'valuepassive': 3 },
+        { 'name': 'Tank', 'active': 'Shield Bash', 'valueactive' : 100, 'passive': 'Deals current HP as damage.', 'valuepassive': 5 },
+        { 'name': '(next patch) Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },
+        { 'name': '(next patch) Sharp Shooter', 'active': 'Snipe', 'valueactive': 200, 'passive': 'Damage Bonus', 'valuepassive': 30 }],
 };
