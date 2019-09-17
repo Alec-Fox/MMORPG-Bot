@@ -21,9 +21,13 @@ module.exports = {
         let top25 = leaderboardData.length;
         if (leaderboardData.length > 25) top25 = 25;
         for (let i = 0; i < top25; i++) {
-            embedFields.push({ name: `**${leaderboardData[i].username}**`, value: `🅻🆅🅻 ${LEVEL_EMOJI[leaderboardData[i].lvl]}`, img: null, inline: true });
+            let levelEmoji = LEVEL_EMOJI[leaderboardData[i].lvl];
+            if(leaderboardData[i].lvl > 10) {
+                levelEmoji = LEVEL_EMOJI[1] + LEVEL_EMOJI[leaderboardData[i].lvl - 10];
+            }
+            embedFields.push({ name: `**${leaderboardData[i].username}**`, value: `🅻🆅🅻 ${levelEmoji}`, img: null, inline: true });
         }
-        const embed = constructEmbed('**LEADERBOARDS**', '', null, embedFields);
+        const embed = constructEmbed('**LEADERBOARDS (TOP 25)**', '', null, embedFields);
         return message.channel.send(embed);
     },
 };
