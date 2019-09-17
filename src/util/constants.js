@@ -78,7 +78,7 @@ module.exports = {
         'total_reward': 0,
     },
     CLASSES: [
-        { 'name': 'Assasain', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Deals 3x your attack damage.', 'valuepassive': 5 },
+        { 'name': 'Assassin', 'active': 'Deadly Shot', 'valueactive': 300, 'passive': 'Deals 3x your attack damage.', 'valuepassive': 5 },
         { 'name': 'Healer', 'active': 'Heal', 'valueactive': 50, 'passive': 'Heals you/@someone for 10.', 'valuepassive': 3 },
         { 'name': 'Tank', 'active': 'Shield Bash', 'valueactive' : 100, 'passive': 'Deals current HP as damage.', 'valuepassive': 5 },
         { 'name': '(next patch) Sneaker', 'active': 'Hide', 'valueactive': 100, 'passive': 'Evasion', 'valuepassive': 25 },

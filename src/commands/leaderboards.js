@@ -18,7 +18,9 @@ module.exports = {
         }
         leaderboardData.sort(function(a, b) { return b.lvl - a.lvl; });
         const embedFields = [];
-        for (let i = 0; i < leaderboardData.length; i++) {
+        let top25 = leaderboardData.length;
+        if (leaderboardData.length > 25) top25 = 25;
+        for (let i = 0; i < top25; i++) {
             embedFields.push({ name: `**${leaderboardData[i].username}**`, value: `🅻🆅🅻 ${LEVEL_EMOJI[leaderboardData[i].lvl]}`, img: null, inline: true });
         }
         const embed = constructEmbed('**LEADERBOARDS**', '', null, embedFields);
